@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongo:4.0-xenial
+    container_name: mongodb
+    ports: 
+      - 27017:27017
+  webapp:
+    build: ./web-app
+    container_name: web-app
+    ports:
+      - "4000:5000"
+    depends_on:
+      - mongodb
+  ml-client:
+    build: ./ml-client
+    container_name: ml-client
+    ports: 
+      - "3000:5000"
+    depends_on:
+      - mongodb
+  
