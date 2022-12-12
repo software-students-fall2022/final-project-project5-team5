@@ -1,5 +1,3 @@
-from matplotlib import gridspec
-import matplotlib.pylab as plt
 import tensorflow_hub as hub
 import tensorflow as tf
 from io import BytesIO
@@ -38,23 +36,6 @@ def load_uploaded_image(image_path, image_size=(256, 256), preserve_aspect_ratio
     img = crop_center(img)
     img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
     return img
-
-#with open("./static/images/178c20b0-f4aa-458a-9524-456a886a736b_1.2e976aeb60135ed768d6be8503d1589d.jpeg", "rb") as tennis:
- #   tennisball = base64.b64encode(tennis.read())
-#print("data:image/jpeg;base64," + tennisball.decode())
-
-#tennisball = tf.io.decode_image(tf.io.read_file("./static/images/178c20b0-f4aa-458a-9524-456a886a736b_1.2e976aeb60135ed768d6be8503d1589d.jpeg"), channels=3, dtype=tf.float32)[tf.newaxis, ...]
-#print('worked!')
-
-#content_image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Golden_Gate_Bridge_from_Battery_Spencer.jpg/640px-Golden_Gate_Bridge_from_Battery_Spencer.jpg'  # @param {type:"string"}
-#style_image_url = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg'  # @param {type:"string"}
-#output_image_size = 384  # @param {type:"integer"}
-
-# The content image size can be arbitrary.
-#content_img_size = (output_image_size, output_image_size)
-# The style prediction model was trained with image size 256 and it's the 
-# recommended image size for the style image (though, other sizes work as 
-# well but will lead to different results).
 
 def url_perform_style_transfer(model, content_image_url, style_image_url):
     content_image = load_image(content_image_url, (500, 500))
