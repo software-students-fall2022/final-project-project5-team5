@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from dotenv import load_dotenv
+from styleTransfer import *
 import pymongo
 import os
 
 app = Flask(__name__)
+
+model = initialize()
 
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
@@ -26,5 +29,19 @@ except Exception as e:
     print('', "Failed to connect to MongoDB at", os.getenv('MONGO_URI'))
     print('Database connection error:', e) # debug'
 
+# route for the home page
+@app.route('/')
+def home():
+    """
+    Route for the home page
+    """
+    return render_template('index.html') # render the hone template
 
-### Put routes code here
+@app.route('/submit', methods=["POST"])
+def submit():
+    contentImage = request.form["contentImage"]
+    styleImage = request.form["styleImage"]
+    resultImage = perform_style_transfer(model, contentImage, styleImage)
+    print(type(resultImage))
+    print(resultImage)
+    return render_template('index.html', result=resultImage)
