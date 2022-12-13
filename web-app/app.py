@@ -32,4 +32,7 @@ def home():
     """
     Route for the home page
     """
-    return render_template('index.html', images=db.images.find({})) # render the home template
+    try:
+        return render_template('index.html', images=db.images.find({})) # render the home template
+    except:
+        pass
