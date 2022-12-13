@@ -45,20 +45,30 @@ def url():
     if(request.method == "GET"):
         return render_template("url.html")
     acceptedFormats = ["jpg", "jpeg", "png", "bmp"]
-    if(not request.form["contentImageURI"].endswith(('.png', '.jpg', '.jpeg', '.bmp')) or not request.form["styleImageURI"].endswith(('.png', '.jpg', '.jpeg', '.bmp'))):
+    contentExt = request.form["contentImageURL"][request.form["contentImageURL"].rfind(".")+1:].lower()
+    styleExt = request.form["styleImageURL"][request.form["styleImageURL"].rfind(".")+1:].lower()
+    contentImageContent = requests.get(request.form["contentImageURL"]).content
+    styleImageContent = requests.get(request.form["styleImageURL"]).content
+    if(contentExt not in acceptedFormats or styleExt not in acceptedFormats):
+        print(imghdr.what(None, contentImageContent))
+        print(imghdr.what(None, styleImageContent))
         return render_template("url.html", error="Please enter images in valid formats (.jpg, .jpeg, .png, .bmp)")
-    ext = request.form["contentImageURI"][request.form["contentImageURI"].rfind(".")+1:]
-    contentImageURI = "data:image/" + ext + ";base64," + base64.b64encode(requests.get(request.form["contentImageURI"]).content).decode()
-    ext = request.form["styleImageURI"][request.form["styleImageURI"].rfind(".")+1:]
-    styleImageURI = "data:image/" + ext + ";base64," + base64.b64encode(requests.get(request.form["styleImageURI"]).content).decode()
-    stylizedImageURI = url_perform_style_transfer(model, request.form["contentImageURI"], request.form["styleImageURI"])
-    ## Save these images to database to later show on web app
-    ## Pymongo code will go here
-    db.images.insert_one({
-        'contentImageURI': contentImageURI,
-        'styleImageURI': styleImageURI,
-        'stylizedImageURI': stylizedImageURI
-    })
+    try:
+        contentImageURI = "data:image/" + contentExt + ";base64," + base64.b64encode(contentImageContent).decode()
+        styleImageURI = "data:image/" + styleExt + ";base64," + base64.b64encode(styleImageContent).decode()
+        print(request.form["contentImageURL"])
+        print(request.form["styleImageURL"])
+        stylizedImageURI = url_perform_style_transfer(model, request.form["contentImageURL"], request.form["styleImageURL"])
+    except:
+        return render_template("url.html", error="Something went wrong during the image generation process. Images may be invalid despite a proper extension, please pick different images")
+    try:
+        request.json()
+    except:
+        db.images.insert_one({
+            'contentImageURI': contentImageURI,
+            'styleImageURI': styleImageURI,
+            'stylizedImageURI': stylizedImageURI
+        })
     return render_template('url.html', contentImageURI=contentImageURI, styleImageURI=styleImageURI, stylizedImageURI=stylizedImageURI)
 
 @app.route('/upload', methods=["GET", "POST"])
@@ -69,13 +79,16 @@ def upload():
     contentImage = basepath + request.form["contentImage"]
     styleImage = basepath + request.form["styleImage"]
     acceptedFormats = ["jpg", "jpeg", "png", "bmp"]
-    if(not contentImage.endswith(('.png', '.jpg', '.jpeg', '.bmp')) or not styleImage.endswith(('.png', '.jpg', '.jpeg', '.bmp')) or imghdr.what(contentImage) not in acceptedFormats or imghdr.what(styleImage) not in acceptedFormats):
+    if(contentImage[contentImage.rfind(".")+1:].lower() not in acceptedFormats or styleImage[styleImage.rfind(".")+1:].lower() or imghdr.what(contentImage) not in acceptedFormats or imghdr.what(styleImage) not in acceptedFormats):
         return render_template("upload.html", error="Upload images in one of these formats (.jpg, .jpeg, .png, .bmp)")
     images = uploaded_perform_style_transfer(model, contentImage, styleImage)
-    db.images.insert_one({
-        'contentImageURI': images[0],
-        'styleImageURI': images[1],
-        'stylizedImageURI': images[2]
-    })
+    try:
+        request.json()
+    except:
+        db.images.insert_one({
+            'contentImageURI': images[0],
+            'styleImageURI': images[1],
+            'stylizedImageURI': images[2]
+        })
     return render_template("upload.html", contentImageURI=images[0], styleImageURI=images[1], stylizedImageURI=images[2])
     # todo backend code
