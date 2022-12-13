@@ -61,9 +61,7 @@ def url():
         stylizedImageURI = url_perform_style_transfer(model, request.form["contentImageURL"], request.form["styleImageURL"])
     except:
         return render_template("url.html", error="Something went wrong during the image generation process. Images may be invalid despite a proper extension, please pick different images")
-    try:
-        request.json()
-    except:
+    if(db):
         db.images.insert_one({
             'contentImageURI': contentImageURI,
             'styleImageURI': styleImageURI,
@@ -82,9 +80,7 @@ def upload():
     if(contentImage[contentImage.rfind(".")+1:].lower() not in acceptedFormats or styleImage[styleImage.rfind(".")+1:].lower() or imghdr.what(contentImage) not in acceptedFormats or imghdr.what(styleImage) not in acceptedFormats):
         return render_template("upload.html", error="Upload images in one of these formats (.jpg, .jpeg, .png, .bmp)")
     images = uploaded_perform_style_transfer(model, contentImage, styleImage)
-    try:
-        request.json()
-    except:
+    if(db):
         db.images.insert_one({
             'contentImageURI': images[0],
             'styleImageURI': images[1],
