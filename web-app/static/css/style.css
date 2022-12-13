@@ -37,3 +37,9 @@ header {
 .imageLabel{
     font-size: 30px;
 }
+
+.message {
+    margin-top: 20%;
+    text-align: center;
+    width: 100%;
+}

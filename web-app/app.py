@@ -33,6 +33,9 @@ def home():
     Route for the home page
     """
     try:
-        return render_template('index.html', images=db.images.find({})) # render the home template
+        if(db.images.count_documents({}) == 0):
+            return render_template('index.html', message="No images in database")
+        return render_template('index.html', images=db.images.find({}))
     except:
         pass
+    return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template

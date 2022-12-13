@@ -13,6 +13,9 @@
             <h1 class="display-3 title">Transformation Process</h1>
         </header>
         <div class="screenDiv">
+            {% if message %}
+            <h1 class="display-4 message">{{message}}</h1>
+            {% endif %}
             {% for image in images %}
             <div class="rowDiv">
                 <div class="imageDiv">
