@@ -26,5 +26,16 @@ except Exception as e:
     print('', "Failed to connect to MongoDB at", os.getenv('MONGO_URI'))
     print('Database connection error:', e) # debug'
 
-
-### Put routes code here
+# route for the home page
+@app.route('/')
+def home():
+    """
+    Route for the home page
+    """
+    try:
+        if(db.images.count_documents({}) == 0):
+            return render_template('index.html', message="No images in database")
+        return render_template('index.html', images=db.images.find({}))
+    except:
+        pass
+    return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template

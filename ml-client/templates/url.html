@@ -9,18 +9,18 @@
         <title>URL Images</title>
     </head>
     <body>
-        <h1 class="display-3 title">Image URLs</h1>
+        <h1 class="display-3 title">Enter Image URLs</h1>
         <form method="POST" action="{{ url_for('url')}}">
             <div class="form-group">
                 <label for="contentImageURL">Enter Content Image URL</label>
-                <input type="text" class="form-control" id="contentImageURL" placeholder="Enter Content Image URL" name="contentImageURI">
+                <input type="text" class="form-control" id="contentImageURL" placeholder="Enter Content Image URL" name="contentImageURL">
             </div>
             <div class="form-group">
                 <label for="styleImageURL">Enter Style Image URL</label>
-                <input type="text" class="form-control" id="styleImageURL" placeholder="Enter Style Image URL" name="styleImageURI">
+                <input type="text" class="form-control" id="styleImageURL" placeholder="Enter Style Image URL" name="styleImageURL">
             </div>
             {% if error %}
-                <p class="text-danger">{{error}}</p>
+                <p class="text-danger movecloser">{{error}}</p>
             {% endif %}
             <button type="submit" class="btn btn-primary movedown">Generate Image</button>
         </form>
@@ -39,7 +39,7 @@
             </div>
             <div class="imageContainer">
                 <h3 class="imageLabel lead">Stylized Image</h3>
-                <img src="{{ stylizedImageURI }}"> 
+                <img src="{{ stylizedImageURI }}" width="500" height="500"> 
             </div>
         </div>
         <div class="miscDiv" style="margin-top:30px;">
