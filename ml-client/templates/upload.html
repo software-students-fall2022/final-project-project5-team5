@@ -9,7 +9,7 @@
         <title>Upload Images</title>
     </head>
     <body>
-        <h1 class="display-3 title">Image Upload</h1>
+        <h1 class="display-3 title">Upload Images</h1>
         <form method="POST" action="{{ url_for('upload')}}">
             <div class="mb-2">
                 <label for="contentImage" class="form-label">Upload Content Image</label>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="imageContainer">
                     <h3 class="imageLabel lead">Stylized Image</h3>
-                    <img src="{{ stylizedImageURI }}"> 
+                    <img src="{{ stylizedImageURI }}" width="500" height="500"> 
                 </div>
             </div>
             <div class="miscDiv">

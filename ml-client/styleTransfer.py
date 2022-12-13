@@ -3,6 +3,7 @@ import tensorflow as tf
 from io import BytesIO
 import numpy as np
 import functools
+import filetype
 import PIL.Image 
 import base64
 import os
@@ -38,8 +39,17 @@ def load_uploaded_image(image_path, image_size=(256, 256), preserve_aspect_ratio
     return img
 
 def url_perform_style_transfer(model, content_image_url, style_image_url):
-    content_image = load_image(content_image_url, (500, 500))
-    style_image = load_image(style_image_url, (256, 256))
+    error = []
+    try:
+        content_image = load_image(content_image_url, (650, 650))
+    except:
+        error.append("content")
+    try:
+        style_image = load_image(style_image_url, (256, 256))
+    except:
+        error.append("style")
+    if(len(error) > 0):
+        return error
     style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
     outputs = model(tf.constant(content_image), tf.constant(style_image))
     stylized_image = outputs[0]
@@ -49,16 +59,16 @@ def url_perform_style_transfer(model, content_image_url, style_image_url):
     buffered = BytesIO()
     result.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue())
-    return "data:image/jpeg;base64," + img_str.decode()
+    return "data:image/" + filetype.guess(buffered).extension + ";base64," + img_str.decode()
 
 def uploaded_perform_style_transfer(model, uploaded_content_image, uploaded_style_image):
     with open(uploaded_content_image, "rb") as content_image:
-        content_image_URI = "data:image/" + uploaded_content_image[uploaded_content_image.rfind(".")+1:] + ";base64," + base64.b64encode(content_image.read()).decode()
+        content_image_URI = "data:image/" + filetype.guess(uploaded_content_image).extension + ";base64," + base64.b64encode(content_image.read()).decode()
     content_image.close()
     with open(uploaded_style_image, "rb") as style_image:
-        style_image_URI = "data:image/" + uploaded_style_image[uploaded_style_image.rfind(".")+1:] + ";base64," + base64.b64encode(style_image.read()).decode()
+        style_image_URI = "data:image/" + filetype.guess(uploaded_style_image).extension + ";base64," + base64.b64encode(style_image.read()).decode()
     style_image.close()
-    content_image = load_uploaded_image(uploaded_content_image, (500, 500))
+    content_image = load_uploaded_image(uploaded_content_image, (650, 650))
     style_image = load_uploaded_image(uploaded_style_image, (256, 256))
     style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
     outputs = model(tf.constant(content_image), tf.constant(style_image))
@@ -69,5 +79,5 @@ def uploaded_perform_style_transfer(model, uploaded_content_image, uploaded_styl
     buffered = BytesIO()
     result.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue())
-    stylized_image_URI = "data:image/jpeg;base64," + img_str.decode()
+    stylized_image_URI = "data:image/" + filetype.guess(buffered).extension + ";base64," + img_str.decode()
     return (content_image_URI, style_image_URI, stylized_image_URI)

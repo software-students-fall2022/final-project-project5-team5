@@ -1,0 +1,39 @@
+.screenDiv{
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    margin-top: 75px;
+}
+
+.imageDiv{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: .75%;
+}
+
+.rowDiv {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    column-gap:40px;
+}
+
+header {
+    width: 100%;
+    background-color: #FFFFFF;
+    position: fixed;
+    height: 75px;
+    top: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+.imageLabel{
+    font-size: 30px;
+}
