@@ -1,21 +1,26 @@
+version: '3'
 services:
-  mongodb:
-    image: mongo:4.0-xenial
-    container_name: mongodb
+  db:
+    image: mongo:5.0
     ports: 
-      - 27017:27017
+      - "27017:27017"
+    
+   
   webapp:
     build: ./web-app
-    container_name: web-app
     ports:
-      - "4000:5000"
+      - "4000:4000"
     depends_on:
-      - mongodb
-  ml-client:
+      - db
+
+  mlclient:
     build: ./ml-client
-    container_name: ml-client
-    ports: 
-      - "3000:5000"
+    ports:
+      - "3000:3000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    dns:
+      - "8.8.8.8"
     depends_on:
-      - mongodb
+      - db
   
