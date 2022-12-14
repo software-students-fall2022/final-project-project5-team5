@@ -5,26 +5,19 @@ import os
 
 app = Flask(__name__)
 
-# load credentials and configuration options from .env file
-# if you do not yet have a file named .env, make one based on the template in env.example
-load_dotenv()  # take environment variables from .env.
+def is_docker():
+    path = '/proc/self/cgroup'
+    return (
+        os.path.exists('/.dockerenv') or
+        os.path.isfile(path) and any('docker' in line for line in open(path))
+    )
 
-# turn on debugging if in development modeflas
-#if os.getenv('FLASK_ENV', 'development') == 'development':
- #   # turn on debugging, if in development
-  #  app.debug = True # debug mode
+if(is_docker()):
+    client = pymongo.MongoClient("db", 27017)
+else:
+    client = pymongo.MongoClient("127.0.0.1", 27017)
 
-cxn = pymongo.MongoClient(os.getenv('MONGO_URI'), serverSelectionTimeoutMS=5000)
-try:
-    # verify the connection works by pinging the database
-    cxn.admin.command('ping') # The ping command is cheap and does not require auth.
-    # db = cxn[os.getenv('MONGO_DBNAME')] # store a reference to the database
-    db = cxn[os.getenv('MONGO_DBNAME')] # store a reference to the database
-    print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
-except Exception as e:
-    # the ping command failed, so the connection is not available.
-    print('', "Failed to connect to MongoDB at", os.getenv('MONGO_URI'))
-    print('Database connection error:', e) # debug'
+db=client["Team5"]
 
 # route for the home page
 @app.route('/')
