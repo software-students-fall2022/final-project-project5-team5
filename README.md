@@ -17,11 +17,11 @@ MongoDB Database: Stores all the images.
 Content and style images are uploaded to the Machine Learning client and converted into one resultant image. For this, Tensorflow's ML package is used. The Web App works as a gallery of all images created as well as content and style images used for the resultant images.
 
 
-# Product Vision Statement
+## Product Vision Statement
 Simple image processing web app that applies style of one image onto another.
 
 
-# Running the Project
+## Running the Project
 1. Navigate to the root folder of this project, then run:
    ```
    docker compose up
