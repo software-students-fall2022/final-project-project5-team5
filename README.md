@@ -5,13 +5,36 @@
 
 # Final Project
 ## Project Description
-Machine Learning Client: Application allowing the user to transfer an image's style onto another image's content, producing a resultant image.
 
-Web App: Application displaying the result images along with the content and style images used to generate them.
+Our app has three subsystems:
 
-MongoDB Database: Will store the images
+Machine Learning Client: Allows the user to apply one image's style to another image.
+
+Web App: Displays the result images along with the content and style images used.
+
+MongoDB Database: Stores all the images.
+
+Content and style images are uploaded to the Machine Learning client and converted into one resultant image. For this, Tensorflow's ML package is used. The Web App works as a gallery of all images created as well as content and style images used for the resultant images.
+
+
+## Product Vision Statement
+Simple image processing web app that applies style of one image onto another.
+
+
+## Running the Project
+1. Navigate to the root folder of this project, then run:
+   ```
+   docker compose up
+   ```
+   
+2. The ML client (if run by Docker) will run at `127.0.0.1:3000`. The web-app will run at `127.0.0.1:4000`. A database container will also be created.
+   
+3. In the ML client, you can take upload the images or provide an URL of images. After you submit, the machine-learning algorithm will run for 2~3 seconds, show the result image and also upload it to the database.
+
+4. After you have created a few images in the ML client, you can view results in the web-app by going to `127.0.0.1:4000`.
 
 ## Team Members
+
 -Amaan Khwaja ([Amaan Khwaja](https://github.com/Amaanmkhwaja))
 
 -Manny Soto Ruiz ([MannySotoRuiz](https://github.com/MannySotoRuiz))
