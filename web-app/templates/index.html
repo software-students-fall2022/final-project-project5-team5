@@ -12,7 +12,14 @@
         <header>
             <h1 class="display-3 title">Transformation Process</h1>
         </header>
+        
         <div class="screenDiv">
+
+          <form action="/search/">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+
             {% if message %}
             <h1 class="display-4 message">{{message}}</h1>
             {% endif %}
