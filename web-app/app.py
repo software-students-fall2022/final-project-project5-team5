@@ -48,3 +48,14 @@ def category(id):
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
+
+@app.route('/delete/<id>', methods=["DELETE"])
+def delete(id):
+    if (request.method == "DELETE"):
+        try:
+            myquery = { "_id": id }
+            db.images.delete_one(myquery)
+            # return "Success", 201
+            return "Success", myquery
+        except:
+            return "Error", 404
