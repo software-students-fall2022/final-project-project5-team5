@@ -30,7 +30,7 @@
                   <h3 class="imageLabel lead">Stylized Image</h3>
                   <div class="stylizedImg">
                     <img class="myImg" src="{{image['stylizedImageURI']}}" height="384" width="384" style="position: relative;">
-                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete">
+                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="test(`{{image['_id']}}`)">
                   </div>
               </div>
                 <h3><a href="/category/{{image['style']}}">Style: {{image['style']}}</a></h3>
@@ -71,5 +71,30 @@
             </div>
         </footer>
         <!--- FOOTER ENDS-->
+
+        <script>
+          // let deleteImgs = document.querySelectorAll(".deletePic");
+          // for (let i = 0; i < deleteImgs.length; i++) {
+          //   deleteImgs[i].addEventListener("click", async function() {
+          //     console.log("clicked!");
+          //     const url = `http://127.0.0.1:4000/delete/`;
+          //     const response = await fetch(url + 123, {
+          //       method: "DELETE",
+          //     });
+
+          //     const resData = response;
+          //     console.log(resData);
+          //   })
+          // }
+          async function test(id) {
+            console.log("clicked", id);
+            const url = `http://127.0.0.1:4000/delete/`;
+            const response = await fetch(url + id, {
+              method: "DELETE",
+            });
+            const resData =response;
+            console.log(resData);
+          }
+        </script>
     </body>
 </html>
