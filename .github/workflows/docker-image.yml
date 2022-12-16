@@ -1,9 +1,6 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - 'deploy'
   pull_request:
     branches:
       - 'main'
