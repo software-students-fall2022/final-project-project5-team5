@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       -
@@ -28,13 +31,15 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: web-app
+          context: ./web-app
+          file: ./web-app/Dockerfile
           push: true
           tags: zackdan/project5-team5-deploy:1
       -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ml-client
+          context: ./ml-client
+          file: ./ml-client/Dockerfile
           push: true
           tags: zackdan/project5-team5-deploy:2
