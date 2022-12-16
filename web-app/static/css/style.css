@@ -44,6 +44,27 @@ header {
     width: 100%;
 }
 
+.hide {
+  display: none;
+}
+.stylizedImg {
+  position: relative;
+}
+.myImg:hover +.hide {
+  display: block;
+}
+.deletePic {
+  /* display: none; */
+  width: 8%;
+  position: absolute;
+  z-index: 99999;
+  top: -4%;
+  right: -4%;
+}
+.deletePic:hover {
+  display: block;
+}
+
 /* FOOTER CSS */
 .site-footer
 {
