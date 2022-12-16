@@ -28,13 +28,13 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./web-app
+          context: ./web-app/Dockerfile
           push: true
           tags: zackdan/project5-team5-deploy:1
       -
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./ml-client
+          context: ./ml-client/Dockerfile
           push: true
           tags: zackdan/project5-team5-deploy:2
