@@ -22,11 +22,14 @@
             {% if error %}
                 <p class="text-danger">{{error}}</p>
             {% endif %}
-            <button type="submit" class="btn btn-primary">Generate Image</button>
+            <button type="submit" class="btn btn-primary" id="generateImg">Generate Image</button>
         </form>
         <a href="{{ url_for('home')}}">
             <button class="btn btn-primary back">Back</button>
         </a>
+
+        <div class="spin hidden" id="spinnerDiv"></div>
+
         {% if stylizedImageURI %}
             <div class="results moveup">
                 <div class="imageContainer">
@@ -51,5 +54,12 @@
                 </a>
             </div>
         {% endif %}
+
+        <script>
+            document.getElementById("generateImg").addEventListener("click", function() {
+                document.getElementById("spinnerDiv").classList.remove("hidden");
+            });
+          </script>
+
     </body>
 </html>
