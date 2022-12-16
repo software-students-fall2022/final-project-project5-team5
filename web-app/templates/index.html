@@ -27,9 +27,12 @@
                     <img src="{{image['styleImageURI']}}" height="384" width="384">
                 </div>
                 <div class="imageDiv">
-                    <h3 class="imageLabel lead">Stylized Image</h3>
-                    <img src="{{image['stylizedImageURI']}}" height="384" width="384">
-                </div>
+                  <h3 class="imageLabel lead">Stylized Image</h3>
+                  <div class="stylizedImg">
+                    <img class="myImg" src="{{image['stylizedImageURI']}}" height="384" width="384" style="position: relative;">
+                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete">
+                  </div>
+              </div>
                 <h3><a href="/category/{{image['style']}}">Style: {{image['style']}}</a></h3>
                 <h5><a href="/delete/{{image['_id']}}">Delete This</a></h5>
             </div>
