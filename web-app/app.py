@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from dotenv import load_dotenv
 import pymongo
 import os
+from bson import ObjectId
 
 app = Flask(__name__)
 
@@ -50,6 +51,23 @@ def category(id):
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
+
+@app.route('/delete/<id>', methods=["DELETE"])
+def delete(id):
+    if (request.method == "DELETE"):
+        try:
+            db.images.delete_one({
+                "_id": ObjectId(id)
+            })
+            return "Success", 200
+        except:
+            return "Error", 404
+        # try:
+        #     myquery = { "_id": id }
+        #     db.images.delete_one(myquery)
+        #     return "Success", 200
+        # except:
+        #     return "Error", 404
 
 @app.route('/search/', methods=['GET','POST'])
 def search():
