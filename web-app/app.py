@@ -5,19 +5,21 @@ import os
 
 app = Flask(__name__)
 
-def is_docker():
-    path = '/proc/self/cgroup'
-    return (
-        os.path.exists('/.dockerenv') or
-        os.path.isfile(path) and any('docker' in line for line in open(path))
-    )
+# load credentials and configuration options from .env file
+# if you do not yet have a file named .env, make one based on the template in env.example
+load_dotenv()  # take environment variables from .env.
 
-if(is_docker()):
-    client = pymongo.MongoClient("db", 27017)
-else:
-    client = pymongo.MongoClient("127.0.0.1", 27017)
-
-db=client["Team5"]
+cxn = pymongo.MongoClient("mongodb+srv://kevin:gong@cluster0.bhbmpmp.mongodb.net/?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000)
+try:
+    # verify the connection works by pinging the database
+    cxn.admin.command('ping') # The ping command is cheap and does not require auth.
+    # db = cxn[os.getenv('MONGO_DBNAME')] # store a reference to the database
+    db = cxn["styleTransfer"] # store a reference to the database
+    print(' *', 'Connected to MongoDB!') # if we get here, the connection worked!
+except Exception as e:
+    # the ping command failed, so the connection is not available.
+    print('', "Failed to connect to MongoDB at", os.getenv('MONGO_URI'))
+    print('Database connection error:', e) # debug'
 
 # route for the home page
 @app.route('/')
