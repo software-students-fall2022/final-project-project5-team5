@@ -34,3 +34,17 @@ def home():
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
+
+@app.route('/category/<id>')
+def category(id):
+    """
+    Route for the home page
+    """
+    try:
+        print(id)
+        if(db.images.count_documents({'style': id}) == 0):
+            return render_template('categorized.html', message="No images in database")
+        return render_template('categorized.html', images=db.images.find({'style': id}),category=id)
+    except:
+        pass
+    return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template

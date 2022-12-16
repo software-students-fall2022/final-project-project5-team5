@@ -10,6 +10,7 @@
     </head>
     <body>
         <header>
+            <h1 class="display-3 title">Category: {{category}}</h1>
             <h1 class="display-3 title">Transformation Process</h1>
         </header>
         <div class="screenDiv">
@@ -30,7 +31,6 @@
                     <h3 class="imageLabel lead">Stylized Image</h3>
                     <img src="{{image['stylizedImageURI']}}" height="384" width="384">
                 </div>
-                <h3><a href="/category/{{image['style']}}">Style: {{image['style']}}</a></h3>
             </div>
             {% endfor %}
         </div>
