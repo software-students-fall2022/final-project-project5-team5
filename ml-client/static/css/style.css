@@ -9,6 +9,10 @@
     justify-content: space-evenly;
 }
 
+.totalTime {
+  margin-top: 3%;
+}
+
 .imageContainer {
     display:flex;
     flex-direction: column;
