@@ -31,6 +31,7 @@
         <div class="spin hidden" id="spinDiv"></div>
 
         {% if stylizedImageURI %}
+        <h5 id="totTime"></h5>
         <div class="results moveup">
             <div class="imageContainer">
                 <h3 class="imageLabel lead">Content Image</h3>
@@ -56,10 +57,30 @@
         {% endif %}
 
         <script>
-            document.getElementById("generateImage").addEventListener("click", function() {
-                document.getElementById("spinDiv").classList.remove("hidden");
-            });
-        </script>
 
+            function timeCompleted() {
+                let currentTime = JSON.parse(localStorage.getItem("counter"));
+                currentTime += 1;
+                localStorage.setItem("counter", JSON.stringify(currentTime));
+            }
+
+            // start timer when generator button clicked
+            document.getElementById("generateImage").addEventListener("click", function() {
+                let counter = 0;
+                localStorage.setItem("counter", JSON.stringify(counter));
+                document.getElementById("spinDiv").classList.remove("hidden");
+                let start = setInterval(timeCompleted, 1000);
+            });
+
+            // display total time
+            let currentTime = JSON.parse(localStorage.getItem("counter"));
+            if (currentTime > 60) {
+                let mins = Math.floor(currentTime / 60);
+                let seconds = time - mins * 60;
+                document.getElementById("totTime").innerText = `Total time to create stylized image: ${mins} mins ${seconds} secs`;
+            } else {
+                document.getElementById("totTime").innerText = `Total time to create stylized image: ${currentTime} seconds`;
+            }
+        </script>
     </body>
 </html>
