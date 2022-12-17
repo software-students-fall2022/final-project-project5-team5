@@ -27,16 +27,16 @@
             <div class="rowDiv">
                 <div class="imageDiv">
                     <h3 class="imageLabel lead">Content Image</h3>
-                    <img src="{{image['contentImageURI']}}" height="384" width="384">
+                    <img src="{{image['contentImageURI']}}" loading="lazy" height="384" width="384">
                 </div>
                 <div class="imageDiv">
                     <h3 class="imageLabel lead">Style Image</h3>
-                    <img src="{{image['styleImageURI']}}" height="384" width="384">
+                    <img src="{{image['styleImageURI']}}" loading="lazy" height="384" width="384">
                 </div>
                 <div class="imageDiv">
                   <h3 class="imageLabel lead">Stylized Image</h3>
                   <div class="stylizedImg">
-                    <img class="myImg" src="{{image['stylizedImageURI']}}" height="384" width="384" style="position: relative;">
+                    <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
                     <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
                   </div>
               </div>
