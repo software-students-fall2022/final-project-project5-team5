@@ -1,3 +1,12 @@
+/*boostrap*/
+
+.title{
+  font-size:4rem;
+  display:flex;
+  justify-content: center;
+  justify-self: center;
+}
+
 .screenDiv{
   display: flex;
   flex-direction: column;
@@ -8,6 +17,27 @@
   overflow: auto;
   margin-top: 75px;
 }
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.navbar-collapse{
+  flex-grow: 0;
+}
+.nav-item{
+  background-color: rgb(235, 235, 235);
+  /*border-style: inset;
+  border-width: 1px;
+  border-bottom: 0px;
+  border-top: 0px;
+  border-color: rgb(255, 255, 255,0);*/
+  margin-left: 2px;
+}
+
 
 .imageDiv{
   display:flex;
