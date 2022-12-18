@@ -49,25 +49,31 @@
 
           </div>
         </nav>
-        <h1 class="display-3 title">Category: {{category}}</h1>
+        <div class="category">Category: {{category}}</div>
         <div>
             {% if message %}
             <h1 class="display-4 message">{{message}}</h1>
             {% endif %}
             {% for image in images %}
             <div class="rowDiv">
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Content Image</h3>
-                    <img src="{{image['contentImageURI']}}" loading="lazy" height="384" width="384">
+              <div class="imageDiv">
+                  <h3 class="imageLabel lead">Content Image</h3>
+                  <img src="{{image['contentImageURI']}}" loading="lazy" class="image">
+              </div>
+              <div class="imageDiv">
+                  <h3 class="imageLabel lead">Style Image</h3>
+                  <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
+              </div>
+              <div class="imageDiv">
+                <h3 class="imageLabel lead">Stylized Image</h3>
+                <div class="stylizedImg">
+                  <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
+                  <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
                 </div>
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Style Image</h3>
-                    <img src="{{image['styleImageURI']}}" loading="lazy" height="384" width="384">
-                </div>
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Stylized Image</h3>
-                    <img src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384">
-                </div>
+            </div>
+            <form action="/category/{{image['style']}}">
+              <button type="button" class="btn btn-primary">Style: {{image['style']}}</button>
+            </form>
             </div>
             {% endfor %}
         </div>
