@@ -7,13 +7,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
         <title>URL Images</title>
-        <style>
-            body {
-                margin-top: 3%;
-                margin-right: 10%;
-                margin-left: 10%;
-            }
-        </style>
     </head>
     <body>
         <h1 class="display-3 title">Enter Image URLs</h1>
@@ -29,7 +22,7 @@
             {% if error %}
                 <p class="text-danger movecloser">{{error}}</p>
             {% endif %}
-            <button type="submit" class="btn btn-primary movedown" id="generateImage">Generate Image</button>
+            <button type="submit" class="btn btn-primary move" id="generateImage">Generate Image</button>
         </form>
         <a href="{{ url_for('home')}}">
             <button class="btn btn-primary back">Back</button>
@@ -38,7 +31,6 @@
         <div class="spin hidden" id="spinDiv"></div>
 
         {% if stylizedImageURI %}
-        <h5 id="totTime"></h5>
         <div class="results moveup">
             <div class="imageContainer">
                 <h3 class="imageLabel lead">Content Image</h3>
@@ -61,7 +53,44 @@
                 </svg> Download Stylized Image</button>   
             </a>
         </div>
+        <h5 class = "total-time" id="totTime"></h5>
         {% endif %}
+
+        <!--- FOOTER STARTS-->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>Team 5</h6>
+                    <p class="text-justify">
+                        Sagynbek Talgatuly <br>
+                        Amaan Khwaja <br>
+                        Manny Soto Ruiz <br>
+                        Kedan Zha <br>
+                        Wuji Cao <br>
+                        Kevin Gong <br>
+                    </p>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                    <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                    </ul>
+                </div>
+                </div>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+                Team 5.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </footer>
+        <!--- FOOTER ENDS-->
 
         <script>
 

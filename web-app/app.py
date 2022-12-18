@@ -11,6 +11,7 @@ app = Flask(__name__)
 load_dotenv()  # take environment variables from .env.
 
 cxn = pymongo.MongoClient("mongodb+srv://kevin:gong@cluster0.bhbmpmp.mongodb.net/?retryWrites=true&w=majority", serverSelectionTimeoutMS=5000)
+
 try:
     # verify the connection works by pinging the database
     cxn.admin.command('ping') # The ping command is cheap and does not require auth.
@@ -22,6 +23,8 @@ except Exception as e:
     print('', "Failed to connect to MongoDB at", os.getenv('MONGO_URI'))
     print('Database connection error:', e) # debug'
 
+print(db.images.count_documents({}))
+
 # route for the home page
 @app.route('/')
 def home():
@@ -31,7 +34,7 @@ def home():
     try:
         if(db.images.count_documents({}) == 0):
             return render_template('index.html', message="No images in database")
-        return render_template('index.html', images=db.images.find({}))
+        return render_template('index.html', images=db.images.find({}).limit(1))
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
@@ -62,12 +65,6 @@ def delete(id):
             return "Success", 200
         except:
             return "Error", 404
-        # try:
-        #     myquery = { "_id": id }
-        #     db.images.delete_one(myquery)
-        #     return "Success", 200
-        # except:
-        #     return "Error", 404
 
 @app.route('/search/', methods=['GET','POST'])
 def search():
