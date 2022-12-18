@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, jsonify
 from dotenv import load_dotenv
 from styleTransfer import *
 import filetype
@@ -6,6 +6,8 @@ import requests
 import pymongo
 import base64
 import os
+import io
+import re
 
 app = Flask(__name__)
 
@@ -39,25 +41,28 @@ def home():
 def url():
     if(request.method == "GET"):
         return render_template("url.html")
+    print(request.form["style"])
     acceptedFormats = ["jpg", "jpeg", "png", "bmp"]
-    try:
-        contentImageContent = requests.get(request.form["contentImageURL"]).content
-    except:
-        return render_template("url.html", error="Content image url is invalid. Either save and upload the image using the upload option, or pick a different content image with a valid extension in the url.")
-    try:
-        styleImageContent = requests.get(request.form["styleImageURL"]).content
-    except:
-        return render_template("url.html", error="Style image url is invalid. Either save and upload the image using the upload option, or pick a different style image with a valid extension in the url.")
-    try:
-        contentExt = filetype.guess(contentImageContent).extension
-    except:
-        return render_template("url.html", error="Problem deciphering the filetype of content image, image may be temporarily down or has an invalid extension, use another content image.")
-    try:
-        styleExt = filetype.guess(styleImageContent).extension
-    except:
-        return render_template("url.html", error="Problem deciphering the filetype of style image, image may be temporarily down or has an invalid extension, use another style image.")
-    if(contentExt not in acceptedFormats or styleExt not in acceptedFormats):
-        return render_template("url.html", error="Please enter images in valid formats (.jpg, .jpeg, .png, .bmp)")
+    #try:
+    #    contentImageContent = requests.get(request.form["contentImageURL"]).content
+    #except:
+    #    return render_template("url.html", error="Content image url is invalid. Either save and upload the image using the upload option, or pick a different content image with a valid extension in the url.")
+    #try:
+    #    styleImageContent = requests.get(request.form["styleImageURL"]).content
+    #except:
+    #    return render_template("url.html", error="Style image url is invalid. Either save and upload the image using the upload option, or pick a different style image with a valid extension in the url.")
+    #try:
+    #    contentExt = filetype.guess(contentImageContent).extension
+    #except:
+    #    return render_template("url.html", error="Problem deciphering the filetype of content image, image may be temporarily down or has an invalid extension, use another content image.")
+    #try:
+    #    styleExt = filetype.guess(styleImageContent).extension
+    #except:
+    #    return render_template("url.html", error="Problem deciphering the filetype of style image, image may be temporarily down or has an invalid extension, use another style image.")
+    #if(contentExt not in acceptedFormats or styleExt not in acceptedFormats):
+    #    return render_template("url.html", error="Please enter images in valid formats (.jpg, .jpeg, .png, .bmp)")
+    if(request.form["style"] == ""):
+        return render_template("url.html", error="Please pick a style")
     contentImageURI = "data:image/" + contentExt + ";base64," + base64.b64encode(contentImageContent).decode()
     styleImageURI = "data:image/" + styleExt + ";base64," + base64.b64encode(styleImageContent).decode()
     stylizedImageURI = url_perform_style_transfer(model, request.form["contentImageURL"], request.form["styleImageURL"])
@@ -70,7 +75,8 @@ def url():
         db.images.insert_one({
             'contentImageURI': contentImageURI,
             'styleImageURI': styleImageURI,
-            'stylizedImageURI': stylizedImageURI
+            'stylizedImageURI': stylizedImageURI,
+            'style': request.form["style"]
         })
     except:
         pass
@@ -80,31 +86,37 @@ def url():
 def upload():
     if(request.method == "GET"):
         return render_template("upload.html")
-    basepath = "./static/images/"
-    contentImage = basepath + request.form["contentImage"]
-    styleImage = basepath + request.form["styleImage"]
+    if(request.form["contentImageURI"] == "Content Image Error"):
+        return render_template("upload.html", error="Could not parse uploaded content image")
+    if(request.form["styleImageURI"] == "Style Image Error"):
+        return render_template("upload.html", error="Could not parse uploaded style image")
+    strippedContentImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["contentImageURI"], count=1)
+    strippedStyleImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["styleImageURI"], count=1)
+    decodedContentImage = base64.b64decode(strippedContentImage)
+    decodedStyleImage = base64.b64decode(strippedStyleImage)
+    try:
+        contentExt = filetype.guess(decodedContentImage).extension
+    except:
+        return render_template("upload.html", error="Could not identify the type and extension of content image")
+    try:
+        styleExt = filetype.guess(decodedStyleImage).extension
+    except:
+        return render_template("upload.html", error="Could not identify the type and extension of style image")
     acceptedFormats = ["jpg", "jpeg", "png", "bmp"]
-    try:
-        contentExt = filetype.guess(contentImage).extension
-    except:
-        return render_template("upload.html", error="Content image cannot be found in static/images directory")
-    try:
-        styleExt = filetype.guess(styleImage).extension
-    except:
-        return render_template("upload.html", error="Style image cannot be found in static/images directory")
-    if(contentExt not in acceptedFormats and styleExt not in acceptedFormats):
-        return render_template("upload.html", error="Invalid content and style images format. Upload content and style images in one of these formats (.jpg, .jpeg, .png, .bmp)")
     if(contentExt not in acceptedFormats):
-        return render_template("upload.html", error="Invalid content image format. Upload content image in one of these formats (.jpg, .jpeg, .png, .bmp)")
+        return render_template("upload.html", error="Content image is of type " + contentExt + ". Content image must be of type jpg, jpeg, png, or bmp.")
     if(styleExt not in acceptedFormats):
-        return render_template("upload.html", error="Invalid style image format. Upload style image in one of these formats (.jpg, .jpeg, .png, .bmp)")
-    images = uploaded_perform_style_transfer(model, contentImage, styleImage)
+        return render_template("upload.html", error="Style image is of type " + styleExt + ". Style image must be of type jpg, jpeg, png, or bmp.")
+    stylizedImageURI = uploaded_perform_style_transfer(model, decodedContentImage, decodedStyleImage)
     try:
         db.images.insert_one({
-            'contentImageURI': images[0],
-            'styleImageURI': images[1],
-            'stylizedImageURI': images[2]
+            'contentImageURI': request.form["contentImageURI"],
+            'styleImageURI': request.form["styleImageURI"],
+            'stylizedImageURI': stylizedImageURI
         })
     except:
         pass
-    return render_template("upload.html", contentImageURI=images[0], styleImageURI=images[1], stylizedImageURI=images[2])
+    return render_template("results.html", contentImageURI=request.form["contentImageURI"], styleImageURI=request.form["styleImageURI"], stylizedImageURI=stylizedImageURI)
+
+if __name__ == "__main__":
+   app.run()

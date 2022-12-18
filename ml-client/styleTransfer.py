@@ -32,8 +32,8 @@ def load_image(image_url, image_size=(256, 256), preserve_aspect_ratio=True):
     return img
 
 @functools.lru_cache(maxsize=None)
-def load_uploaded_image(image_path, image_size=(256, 256), preserve_aspect_ratio=True):
-    img = tf.io.decode_image(tf.io.read_file(image_path), channels=3, dtype=tf.float32)[tf.newaxis, ...]
+def load_uploaded_image(imageBytes, image_size=(256, 256), preserve_aspect_ratio=True):
+    img = tf.io.decode_image(imageBytes, channels=3, dtype=tf.float32)[tf.newaxis, ...]
     img = crop_center(img)
     img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
     return img
@@ -62,12 +62,6 @@ def url_perform_style_transfer(model, content_image_url, style_image_url):
     return "data:image/" + filetype.guess(buffered).extension + ";base64," + img_str.decode()
 
 def uploaded_perform_style_transfer(model, uploaded_content_image, uploaded_style_image):
-    with open(uploaded_content_image, "rb") as content_image:
-        content_image_URI = "data:image/" + filetype.guess(uploaded_content_image).extension + ";base64," + base64.b64encode(content_image.read()).decode()
-    content_image.close()
-    with open(uploaded_style_image, "rb") as style_image:
-        style_image_URI = "data:image/" + filetype.guess(uploaded_style_image).extension + ";base64," + base64.b64encode(style_image.read()).decode()
-    style_image.close()
     content_image = load_uploaded_image(uploaded_content_image, (650, 650))
     style_image = load_uploaded_image(uploaded_style_image, (256, 256))
     style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
@@ -80,4 +74,4 @@ def uploaded_perform_style_transfer(model, uploaded_content_image, uploaded_styl
     result.save(buffered, format="JPEG")
     img_str = base64.b64encode(buffered.getvalue())
     stylized_image_URI = "data:image/" + filetype.guess(buffered).extension + ";base64," + img_str.decode()
-    return (content_image_URI, style_image_URI, stylized_image_URI)
+    return stylized_image_URI
