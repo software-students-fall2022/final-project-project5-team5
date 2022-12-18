@@ -1,13 +1,13 @@
 .title {
-    text-align: center;
+  margin-top: 5%;
+  text-align: center;
 }
 
-.results {
-    display:flex;
-    width:100%;
-    flex-direction: row;
-    justify-content: space-evenly;
+.subtitle {
+  margin-top: 2%;
+  text-align: center;
 }
+
 
 a {
   text-decoration: none;
@@ -15,61 +15,92 @@ a {
 
 .totalTime {
   margin-top: 3%;
+  
+.results {
+  display:flex;
+  width:100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+
 }
 
 .imageContainer {
-    display:flex;
-    flex-direction: column;
-    text-align: center;
-    margin-top: 2%;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 2%;
 }
 
 .miscDiv {
-    display:flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    margin-top: 1%;
-    margin-bottom: 2%;
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 1%;
+  margin-bottom: 2%;
 }
 
 .options {
-    margin-top: 10%;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-    column-gap: 5%;
-    margin-bottom: 5%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  column-gap: 5%;
+  margin-bottom: 5%;
 }
 
 .optionBtn {
-    width: 375px;
-    height: 100px;
-    font-size: 2rem;
+  width: 375px;
+  height: 100px;
+  font-size: 2rem;
 }
+
+.back, .form-group, .movecloser {
+  margin-top: 10px;
+  margin-left: 10%;
+  margin-right: 10%; 
+}
+
 
 .back, .uploadBackLink, .movedown, .form-group:nth-child(2) {
     margin-top: 10px;
 }
 
+.form-group:nth-child(1) {
+  margin-top: 3%;
+}
+
+.total-time {
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%; 
+}
+
+.move {
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%; 
+}
+
 .logo {
-    margin-top: 10%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  margin-top: 9%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .imageLabel {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .moveup {
-    margin-top: -20px;
+  margin-top: 3%;
 }
 
 .movecloser {
-    margin-bottom: -4px;
+  margin-bottom: -4px;
 }
 
 /* FOOTER CSS */
@@ -80,16 +111,20 @@ a {
   font-size:15px;
   line-height:24px;
   color:#737373;
+  margin-top: 5%;
 }
+
 .site-footer hr
 {
   border-top-color:#bbb;
   opacity:0.5
 }
+
 .site-footer hr.small
 {
   margin:20px 0
 }
+
 .site-footer h6
 {
   color:#fff;
@@ -98,41 +133,50 @@ a {
   margin-top:5px;
   letter-spacing:2px
 }
+
 .site-footer a
 {
   color:#737373;
 }
+
 .site-footer a:hover
 {
   color:#3366cc;
   text-decoration:none;
 }
+
 .footer-links
 {
   padding-left:0;
   list-style:none
 }
+
 .footer-links li
 {
   display:block
 }
+
 .footer-links a
 {
   color:#737373
 }
+
 .footer-links a:active,.footer-links a:focus,.footer-links a:hover
 {
   color:#3366cc;
   text-decoration:none;
 }
+
 .footer-links.inline li
 {
   display:inline-block
 }
+
 .site-footer .social-icons
 {
   text-align:right
 }
+
 .site-footer .social-icons a
 {
   width:40px;
@@ -143,10 +187,12 @@ a {
   border-radius:100%;
   background-color:#33353d
 }
+
 .copyright-text
 {
   margin:0
 }
+
 @media (max-width:991px)
 {
   .site-footer [class^=col-]
@@ -154,6 +200,7 @@ a {
     margin-bottom:30px
   }
 }
+
 @media (max-width:767px)
 {
   .site-footer
@@ -165,6 +212,7 @@ a {
     text-align:center
   }
 }
+
 /* FOOTER CSS ENDS*/
 
 @keyframes spinner {
@@ -175,6 +223,7 @@ a {
     transform: translate3d(-50%, -50%, 0) rotate(360deg);
   }
 }
+
 .spin::before {
   animation: 1.5s linear infinite spinner;
   animation-play-state: inherit;

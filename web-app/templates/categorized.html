@@ -9,32 +9,71 @@
         <title>Web App</title>
     </head>
     <body>
-        <header>
-            <h1 class="display-3 title">Category: {{category}}</h1>
-            <h1 class="display-3 title">Transformation Process</h1>
-        </header>
-        <div class="screenDiv">
-          <form action="/search/">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
+        
+            
+      <div class="title">Transformation Process</h1></div>
+        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Classical">Classical</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Realist">Realist</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Romantic">Romantic</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Impressionist">Impressionist</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Modern">Modern</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Misc">Misc</a>
+              </li>
+            </ul>
+
+          </div>
+        </nav>
+        <div class="category">Category: {{category}}</div>
+        <div>
             {% if message %}
             <h1 class="display-4 message">{{message}}</h1>
             {% endif %}
             {% for image in images %}
             <div class="rowDiv">
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Content Image</h3>
-                    <img src="{{image['contentImageURI']}}" height="384" width="384">
+              <div class="imageDiv">
+                  <h3 class="imageLabel lead">Content Image</h3>
+                  <img src="{{image['contentImageURI']}}" loading="lazy" class="image">
+              </div>
+              <div class="imageDiv">
+                  <h3 class="imageLabel lead">Style Image</h3>
+                  <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
+              </div>
+              <div class="imageDiv">
+                <h3 class="imageLabel lead">Stylized Image</h3>
+                <div class="stylizedImg">
+                  <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
+                  <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
                 </div>
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Style Image</h3>
-                    <img src="{{image['styleImageURI']}}" height="384" width="384">
-                </div>
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Stylized Image</h3>
-                    <img src="{{image['stylizedImageURI']}}" height="384" width="384">
-                </div>
+            </div>
+            <form action="/category/{{image['style']}}">
+              <button type="button" class="btn btn-primary">Style: {{image['style']}}</button>
+            </form>
             </div>
             {% endfor %}
         </div>
