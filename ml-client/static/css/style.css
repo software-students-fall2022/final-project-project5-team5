@@ -8,20 +8,11 @@
   text-align: center;
 }
 
-
-a {
-  text-decoration: none;
-}
-
-.totalTime {
-  margin-top: 3%;
-  
 .results {
   display:flex;
   width:100%;
   flex-direction: row;
   justify-content: space-evenly;
-
 }
 
 .imageContainer {
@@ -62,11 +53,6 @@ a {
   margin-right: 10%; 
 }
 
-
-.back, .uploadBackLink, .movedown, .form-group:nth-child(2) {
-    margin-top: 10px;
-}
-
 .form-group:nth-child(1) {
   margin-top: 3%;
 }
@@ -88,7 +74,6 @@ a {
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 .imageLabel {
@@ -242,89 +227,4 @@ a {
 
 .hidden {
   display: none;
-}
-
-.uploadDiv {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  column-gap: 14%;
-  justify-content: center;
-}
-
-.resultsDiv {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  column-gap: 3%;
-  padding-left: 2.3%;
-  text-align: center;
-}
-
-#uploadForm {
-  width: 100%;
-}
-
-.containerDiv {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.containerDiv > input {
-  display: none;
-}
-
-.imageDiv {
-  width: 500px;
-  height: 500px;
-}
-
-.generateButton, .generateButtonBefore {
-  display: block;
-  margin-left: 43.6%;
-  width: 220px;
-  height: 50px;
-  font-size: 1.5rem;
-}
-
-.generateButtonBefore {
-  margin-top: 5%;
-}
-
-.uploadBack {
-  display:block;
-  margin-left: 47.1%;
-  margin-top: 1%;
-  width:100px;
-  height: 45px;
-  font-size: 1.3rem;
-}
-
-.uploadBackLink {
-  text-decoration: none;
-}
-
-.uploadButton {
-  display: block;
-  margin: auto;
-  margin-top: 20px;
-  width: 280px;
-  height: 45px;
-  font-size: 1.2rem;
-}
-
-#contentImg, #styleImg, #stylizedImg {
-  border: 1px solid black;
-}
-
-#totalTime {
-  margin-top: 2%;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.error {
-  margin-top: 2%;
-  text-align: center;
 }
