@@ -2,6 +2,7 @@
 <br />
 ![ML Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/ml-tests.yaml/badge.svg)
 ![Web App Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/web-app-tests.yaml/badge.svg)
+![Docker Hub CD](https://github.com/software-students-fall2022/final-project-project5-team5/blob/main/.github/workflows/docker-image.yml/badge.svg)
 
 # Final Project
 ## Project Description
@@ -32,6 +33,14 @@ Simple image processing web app that applies style of one image onto another.
 3. In the ML client, you can take upload the images or provide an URL of images. After you submit, the machine-learning algorithm will run for 2~3 seconds, show the result image and also upload it to the database.
 
 4. After you have created a few images in the ML client, you can view results in the web-app by going to `127.0.0.1:4000`.
+
+
+## Digital Ocean
+
+Photo gallary for transformation process [web app](https://transformationprocess-ohmxo.ondigitalocean.app/zackdan-project-5-team-5-deploy)
+
+Machine learning client [website](https://transformationprocess-ohmxo.ondigitalocean.app/)
+
 
 ## Team Members
 
