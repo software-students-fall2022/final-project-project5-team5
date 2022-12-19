@@ -49,5 +49,5 @@ jobs:
       - name: DigitalOcean App Platform Deployment
         uses: digitalocean/app_action@main
         with:
-            app_name: transformationprocess
+            app_name: transformationprocess, gallaryweb
             token: ${{ secrets.DIGITALOCEAN_TOKEN }}
