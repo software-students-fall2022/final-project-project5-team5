@@ -16,7 +16,7 @@ jobs:
       - name: Set up Docker Builder
         uses: docker/setup-buildx-action@v1
       - name: Authenticate with DigitalOcean Container Registry
-        run: doctl registry login --expiry-seconds 180
+        run: doctl registry login --expiry-seconds 500
       - name: Build and Push to DigitalOcean Container Registry
         uses: docker/build-push-action@v2
         with:
