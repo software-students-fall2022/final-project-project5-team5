@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../static/css/style.css"/>
+        <title>Image Style Transfer</title>
+    </head>
+    <body>
+        <h1 class="display-1 title">Image Style Transfer App</h1>
+        <h4 class="subtitle">One for the content, one for the style!</h4>
+        <img class="logo" src="{{ url_for('static', filename='images/logo.jpeg')}}" height="300" width="1000">
+        <div class="options">
+            <a href="{{ url_for('url')}}">
+                <button class="btn btn-primary optionBtn">Enter Image URLs</button>
+            </a>
+            <a href="{{ url_for('upload')}}">
+                <button class="btn btn-primary optionBtn">Upload Images</button>
+            </a>
+        </div>
+
+        <!--- FOOTER STARTS-->
+        <footer class="site-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h6>Team 5</h6>
+                  <p class="text-justify">
+                      Sagynbek Talgatuly <br>
+                      Amaan Khwaja <br>
+                      Manny Soto Ruiz <br>
+                      Kedan Zha <br>
+                      Wuji Cao <br>
+                      Kevin Gong <br>
+                  </p>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                  <h6>Quick Links</h6>
+                  <ul class="footer-links">
+                    <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                  </ul>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                  <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+               Team 5.
+                  </p>
+                </div>
+              </div>
+            </div>
+        </footer>
+        <!--- FOOTER ENDS-->
+        
+    </body>
+</html>
