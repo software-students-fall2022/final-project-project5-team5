@@ -41,7 +41,11 @@
   border-color: rgb(255, 255, 255,0);*/
   margin-left: 2px;
 }
-
+.navbar-brand {
+  margin: 0;
+  padding-right: 8px;
+  padding-left: 8px;
+}
 
 .imageDiv{
   display:flex;
