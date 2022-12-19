@@ -237,11 +237,12 @@
   padding-right: 5%;
   text-align: center;
   column-gap: 6%;
-  margin-bottom: 2%;
+  margin-bottom: 12%;
 }
 
 .uploadDiv img {
   width: 100%;
+  height: 100%;
 }
 
 .resultsDiv {
@@ -252,7 +253,7 @@
   padding-right: 5%;
   text-align: center;
   column-gap: 6%;
-  margin-bottom: 9%;
+  margin-bottom: 12%;
 }
 
 #uploadForm {
@@ -265,7 +266,8 @@
 .containerDiv {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 400px;
+  height: 400px;
   text-align: center;
 }
 
@@ -274,8 +276,8 @@
 }
 
 .imageDiv {
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 400px;
 }
 
 .generateButton, .generateButtonBefore {
