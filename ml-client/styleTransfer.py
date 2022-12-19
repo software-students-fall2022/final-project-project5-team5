@@ -41,7 +41,7 @@ def load_uploaded_image(imageBytes, image_size=(256, 256), preserve_aspect_ratio
 def url_perform_style_transfer(model, content_image_url, style_image_url):
     error = []
     try:
-        content_image = load_image(content_image_url, (650, 650))
+        content_image = load_image(content_image_url, (700, 700))
     except:
         error.append("content")
     try:
@@ -62,7 +62,7 @@ def url_perform_style_transfer(model, content_image_url, style_image_url):
     return "data:image/" + filetype.guess(buffered).extension + ";base64," + img_str.decode()
 
 def uploaded_perform_style_transfer(model, uploaded_content_image, uploaded_style_image):
-    content_image = load_uploaded_image(uploaded_content_image, (650, 650))
+    content_image = load_uploaded_image(uploaded_content_image, (700, 700))
     style_image = load_uploaded_image(uploaded_style_image, (256, 256))
     style_image = tf.nn.avg_pool(style_image, ksize=[3,3], strides=[1,1], padding='SAME')
     outputs = model(tf.constant(content_image), tf.constant(style_image))

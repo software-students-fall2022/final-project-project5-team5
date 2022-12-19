@@ -27,7 +27,7 @@
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/category/realist">Realist</a>
+                <a class="nav-link" href="/category/realist">Realistic</a>
               </li>
 
               <li class="nav-item">
@@ -68,57 +68,93 @@
                 <h3 class="imageLabel lead">Stylized Image</h3>
                 <div class="stylizedImg">
                   <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
-                  
                 </div>
             </div>
             <div class="buttonDiv">
-              <a href="{{image['stylizedImageURI']}}" download="style.jpg" class="btn btn-info">Download</a>
+              <a href="{{image['stylizedImageURI']}}" download="style.jpg" class="btn btn-info buttonOptions">Download</a>
               <form action="/category/{{image['style']}}">
-                <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
+                <button type="submit" class="btn btn-primary buttonOptions">Style: {{image['style']}}</button>
               </form>
               <form action="../delete/{{image['_id']}}" method="GET">
-                <button type="submit" name="delete" class="btn btn-danger">Delete This</button>
+                <button type="submit" name="delete" class="btn btn-danger buttonOptions">Delete This</button>
               </form>
              </div>
             </div>
             {% endfor %}
         </div>
-        
-        <!--- FOOTER STARTS-->
-        <footer class="site-footer">
-          <div class="container">
-              <div class="row">
-              <div class="col-sm-12 col-md-6">
-                  <h6>Team 5</h6>
-                  <p class="text-justify">
-                      Sagynbek Talgatuly <br>
-                      Amaan Khwaja <br>
-                      Manny Soto Ruiz <br>
-                      Kedan Zha <br>
-                      Wuji Cao <br>
-                      Kevin Gong <br>
-                  </p>
+        {% if message == "No images in database" or count <= 1 %}
+            <!--- FOOTER STARTS-->
+            <footer class="site-footerFixed">
+              <div class="container">
+                  <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                      <h6>Team 5</h6>
+                      <p class="text-justify">
+                          Sagynbek Talgatuly <br>
+                          Amaan Khwaja <br>
+                          Manny Soto Ruiz <br>
+                          Kedan Zha <br>
+                          Wuji Cao <br>
+                          Kevin Gong <br>
+                      </p>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                      <h6>Quick Links</h6>
+                      <ul class="footer-links">
+                      <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                      </ul>
+                  </div>
+                  </div>
+                  <hr>
               </div>
-              <div class="col-xs-6 col-md-3">
-                  <h6>Quick Links</h6>
-                  <ul class="footer-links">
-                  <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
-                  </ul>
+              <div class="container">
+                  <div class="row">
+                  <div class="col-md-8 col-sm-6 col-xs-12">
+                      <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+                  Team 5.
+                      </p>
+                  </div>
+
+                  </div>
               </div>
-              </div>
-              <hr>
-          </div>
-          <div class="container">
-              <div class="row">
-              <div class="col-md-8 col-sm-6 col-xs-12">
-                  <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
-              Team 5.
-                  </p>
-              </div>
-              </div>
-          </div>
-      </footer>
+            </footer>
+        {% else %}
+          <!--- FOOTER STARTS-->
+          <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>Team 5</h6>
+                    <p class="text-justify">
+                        Sagynbek Talgatuly <br>
+                        Amaan Khwaja <br>
+                        Manny Soto Ruiz <br>
+                        Kedan Zha <br>
+                        Wuji Cao <br>
+                        Kevin Gong <br>
+                    </p>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                    <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                    </ul>
+                </div>
+                </div>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+                Team 5.
+                    </p>
+                </div>
+
+                </div>
+            </div>
+          </footer>
+        {% endif %}
       <!--- FOOTER ENDS-->
-      
     </body>
 </html>
