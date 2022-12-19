@@ -67,11 +67,14 @@
                   <h3 class="imageLabel lead">Stylized Image</h3>
                   <div class="stylizedImg">
                     <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
-                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
+                   <!---<img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">-->
                   </div>
               </div>
               <form action="/category/{{image['style']}}">
-                <button type="button" class="btn btn-primary">Style: {{image['style']}}</button>
+                <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
+              </form>
+              <form action="../delete/{{image['_id']}}" method="GET">
+                <button type="submit" name="delete">Delete This</button>
               </form>
             </div>
             {% endfor %}
@@ -115,7 +118,7 @@
             console.log("clicked", id);
             const url = `http://127.0.0.1:4000/delete/`;
             const response = await fetch(url + id, {
-              method: "DELETE",
+              method: "POST",
             });
             if (response.ok) {
               const resData =response;
