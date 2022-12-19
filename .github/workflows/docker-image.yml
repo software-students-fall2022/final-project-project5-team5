@@ -1,6 +1,9 @@
-name: ci
+name: CI & CD
 
 on:
+  push:
+    branches:
+      'digitalocean'
   pull_request:
     branches:
       - 'main'
@@ -31,7 +34,7 @@ jobs:
           context: ./web-app
           file: ./web-app/Dockerfile
           push: true
-          tags: zackdan/project5-team5-deploy:1
+          tags: zackdan/project5-team5-deploy:1 , registry.digitalocean.com/project5-team5:1
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -39,4 +42,4 @@ jobs:
           context: ./ml-client
           file: ./ml-client/Dockerfile
           push: true
-          tags: zackdan/project5-team5-deploy:2
+          tags: zackdan/project5-team5-deploy:2 , registry.digitalocean.com/project5-team5:2
