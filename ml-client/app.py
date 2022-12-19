@@ -163,6 +163,7 @@ def upload():
     contentKey = 'content' + currentTime + "." + str(contentExt)
     styleKey = 'style' + currentTime + "." + str(styleExt)
     try:
+        pass
         #s3.put_object(Body = decodedContentImage, Bucket='kgstyletransfer', Key=contentKey)
         #s3.put_object(Body = decodedStyleImage, Bucket='kgstyletransfer', Key=styleKey)
     except:
@@ -171,6 +172,7 @@ def upload():
     decodedStylizedImage = base64.b64decode(re.sub('^data:image\/[a-z]+;base64,', "", stylizedImageURI, count=1))
     stylizedKey = 'stylized' + currentTime + ".jpg"
     try:
+        pass
         #s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
     except:
         pass
