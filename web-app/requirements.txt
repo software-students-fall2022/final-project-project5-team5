@@ -1,0 +1,5 @@
+boto3==1.26.32
+Flask==2.2.2
+pymongo==4.3.3
+pytest==6.2.3
+python-dotenv==0.21.0

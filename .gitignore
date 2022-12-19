@@ -117,6 +117,7 @@ celerybeat.pid
 
 # Environments
 .env
+*/.env
 .venv
 env/
 venv/
@@ -147,3 +148,14 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# images
+*.png
+*.jpeg
+*.jpg
+/*.jpg
+/*.jpeg
+/*.png
+.bmp
+*.bmp
+/*.bmp
