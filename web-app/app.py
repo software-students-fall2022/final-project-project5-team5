@@ -2,7 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from dotenv import load_dotenv
 import pymongo
 import os
+import re
 from bson import ObjectId
+import boto3 
+
+s3 = boto3.resource("s3")
 
 app = Flask(__name__)
 
@@ -30,9 +34,11 @@ def home():
     Route for the home page
     """
     try:
-        if(db.images.count_documents({}) == 0):
-            return render_template('index.html', message="No images in database")
-        return render_template('index.html', images=db.images.find({}).limit(5))
+        count = db.images.count_documents({})
+        print(count)
+        if(count == 0):
+            return render_template('index.html', message="No images in database", count=count)
+        return render_template('index.html', images=db.images.find({}), count=count)
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
@@ -46,9 +52,11 @@ def category(id):
         print(id)
         if(id==""):
             return home()
-        if(db.images.count_documents({'style': id}) == 0):
-            return render_template('categorized.html', message="No images in database",category=id)
-        return render_template('categorized.html', images=db.images.find({'style': id}),category=id)
+        category = id[0].upper() + id[1:]
+        count = db.images.count_documents({'style': id})
+        if(count == 0):
+            return render_template('categorized.html', message="No images in database", category=category, count=count)
+        return render_template('categorized.html', images=db.images.find({'style': id}), category=category, count=count)
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
@@ -57,12 +65,13 @@ def category(id):
 def delete(id):
     print("deleting "+ id)
     try:
-        
+        image = db.images.find_one({"_id": ObjectId(id)})
+        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["contentImageURI"])).delete()
+        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["styleImageURI"])).delete()
+        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["stylizedImageURI"])).delete()
         db.images.delete_one({
            "_id": ObjectId(id)
         })
         return home(), 200
     except:
         return "Error", 404
-    
-

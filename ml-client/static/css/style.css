@@ -58,9 +58,9 @@
 }
 
 .total-time {
-  margin-top: 3%;
-  margin-left: 10%;
-  margin-right: 10%; 
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: -3%;
 }
 
 .move {
@@ -81,7 +81,7 @@
 }
 
 .moveup {
-  margin-top: 3%;
+  margin-top: 2%;
 }
 
 .movecloser {
@@ -97,6 +97,18 @@
   line-height:24px;
   color:#737373;
   margin-top: 5%;
+}
+
+.site-footerFixed {
+    background-color:#26272b;
+    padding:45px 0 20px;
+    font-size:15px;
+    line-height:24px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    color:#737373;
 }
 
 .site-footer hr
@@ -249,7 +261,7 @@
   padding-right: 5%;
   text-align: center;
   column-gap: 6%;
-  margin-bottom: 12%;
+  margin-bottom: 7%;
   justify-content: center;
 }
 

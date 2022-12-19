@@ -62,6 +62,7 @@
   align-items: center;
   margin-bottom: 10px;
   background-color: rgba(235, 235, 235, 0.342);
+  padding-left: 5%;
 }
 
 .category{
@@ -81,6 +82,11 @@
   flex-grow: 2;
   height: 300px;
   width: 50px;
+  padding-right: 3%;
+}
+
+.buttonOptions {
+  width: 170px;
 }
 
 header {
@@ -131,8 +137,24 @@ background-color:#26272b;
 padding:45px 0 20px;
 font-size:15px;
 line-height:24px;
+left: 0;
 color:#737373;
 }
+
+.site-footerFixed
+{
+background-color:#26272b;
+padding:45px 0 20px;
+font-size:15px;
+line-height:24px;
+position: fixed;
+bottom: 0;
+width: 100%;
+left: 0;
+color:#737373;
+}
+
+
 .site-footer hr
 {
 border-top-color:#bbb;

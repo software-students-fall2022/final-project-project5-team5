@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response, jsonify
 from dotenv import load_dotenv
 from styleTransfer import *
+from datetime import datetime
 import filetype
 import requests
 import pymongo
@@ -8,6 +9,10 @@ import base64
 import os
 import io
 import re
+import boto3 
+
+session = boto3.Session()
+s3 = session.client("s3")
 
 app = Flask(__name__)
 
@@ -71,11 +76,29 @@ def url():
             return render_template("url.html", error="Was not able to retrieve content and style images due to a retrieval error. Please use other images.")
         if(len(stylizedImageURI) == 1):
             return render_template("url.html", error="Was not able to retrieve " + stylizedImageURI[0] + " image due to a retrieval error. Please use another image.")
+    currentTime = str(datetime.today().timestamp())
+    contentKey = 'content' + currentTime + "." + str(contentExt)
+    styleKey = 'style' + currentTime + "." + str(styleExt)
+    try:
+        s3.put_object(Body = contentImageContent, Bucket='kgstyletransfer', Key=contentKey)
+        s3.put_object(Body = styleImageContent, Bucket='kgstyletransfer', Key=styleKey)
+    except:
+        pass
+    decodedStylizedImage = base64.b64decode(re.sub('^data:image\/[a-z]+;base64,', "", stylizedImageURI, count=1))
+    stylizedKey = 'stylized' + currentTime + ".jpg"
+    try:
+        s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
+    except:
+        pass
+    baseurl = "https://kgstyletransfer.s3.amazonaws.com/"
+    contentImageS3 = baseurl + contentKey
+    styleImageS3 = baseurl + styleKey
+    stylizedImageS3 = baseurl + stylizedKey
     try:
         db.images.insert_one({
-            'contentImageURI': contentImageURI,
-            'styleImageURI': styleImageURI,
-            'stylizedImageURI': stylizedImageURI,
+            'contentImageURI': contentImageS3,
+            'styleImageURI': styleImageS3,
+            'stylizedImageURI': stylizedImageS3,
             'style': request.form["style"]
         })
     except:
@@ -92,7 +115,6 @@ def upload():
         return render_template("upload.html", error="Could not parse uploaded style image")
     if(request.form["style"] == ""):
         return render_template("upload.html", error="Please choose a style")
-    print(request.form["style"])
     strippedContentImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["contentImageURI"], count=1)
     strippedStyleImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["styleImageURI"], count=1)
     decodedContentImage = base64.b64decode(strippedContentImage)
@@ -110,12 +132,30 @@ def upload():
         return render_template("upload.html", error="Content image is of type " + contentExt + ". Content image must be of type jpg, jpeg, png, or bmp.")
     if(styleExt not in acceptedFormats):
         return render_template("upload.html", error="Style image is of type " + styleExt + ". Style image must be of type jpg, jpeg, png, or bmp.")
+    currentTime = str(datetime.today().timestamp())
+    contentKey = 'content' + currentTime + "." + str(contentExt)
+    styleKey = 'style' + currentTime + "." + str(styleExt)
+    try:
+        s3.put_object(Body = decodedContentImage, Bucket='kgstyletransfer', Key=contentKey)
+        s3.put_object(Body = decodedStyleImage, Bucket='kgstyletransfer', Key=styleKey)
+    except:
+        pass
     stylizedImageURI = uploaded_perform_style_transfer(model, decodedContentImage, decodedStyleImage)
+    decodedStylizedImage = base64.b64decode(re.sub('^data:image\/[a-z]+;base64,', "", stylizedImageURI, count=1))
+    stylizedKey = 'stylized' + currentTime + ".jpg"
+    try:
+        s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
+    except:
+        pass
+    baseurl = "https://kgstyletransfer.s3.amazonaws.com/"
+    contentImageS3 = baseurl + contentKey
+    styleImageS3 = baseurl + styleKey
+    stylizedImageS3 = baseurl + stylizedKey
     try:
         db.images.insert_one({
-            'contentImageURI': request.form["contentImageURI"],
-            'styleImageURI': request.form["styleImageURI"],
-            'stylizedImageURI': stylizedImageURI,
+            'contentImageURI': contentImageS3,
+            'styleImageURI': styleImageS3,
+            'stylizedImageURI': stylizedImageS3,
             'style': request.form["style"]
         })
     except:
