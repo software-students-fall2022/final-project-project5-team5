@@ -260,7 +260,6 @@
   height: auto;
   margin-bottom: 25px;
   flex-direction: row;
-  row-gap: 10%;
 }
 
 .containerDiv {
@@ -284,11 +283,8 @@
   width: auto;
   height: auto;
   font-size: 1.5rem;
-  margin: 0 auto;
-}
-
-.generateButtonBefore {
-  margin-top: 3.5%;
+  margin: auto;
+  margin-top: -5%;
 }
 
 .uploadBack {
