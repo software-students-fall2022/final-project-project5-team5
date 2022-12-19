@@ -1,6 +1,9 @@
-name: ci
+name: CD
 
 on:
+  push:
+    branches:
+      - 'digitalocean'
   pull_request:
     branches:
       - 'main'
@@ -19,11 +22,12 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Login to Docker Hub
+        name: Login to digital ocean
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: registry.digitalocean.com
+          username: dop_v1_1d4c82767e37395df8cad0629c85275119dcf09d4b9d82660bf654f2a500d657
+          password: dop_v1_1d4c82767e37395df8cad0629c85275119dcf09d4b9d82660bf654f2a500d657
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -31,7 +35,7 @@ jobs:
           context: ./web-app
           file: ./web-app/Dockerfile
           push: true
-          tags: zackdan/project5-team5-deploy:1
+          tags: registry.digitalocean.com/project5-team5:1
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -39,4 +43,4 @@ jobs:
           context: ./ml-client
           file: ./ml-client/Dockerfile
           push: true
-          tags: zackdan/project5-team5-deploy:2
+          tags: registry.digitalocean.com/project5-team5:2
