@@ -30,6 +30,7 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v3
+        run: docker login registry.digitalocean.com --username=dop_v1_f6a5ee4caeeac47e5326e4cebdaeb41cbafff6a219ee6db5930a45b02b943c3f
         with:
           context: ./web-app
           file: ./web-app/Dockerfile
@@ -38,6 +39,7 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v3
+        run: docker login registry.digitalocean.com --username=dop_v1_f6a5ee4caeeac47e5326e4cebdaeb41cbafff6a219ee6db5930a45b02b943c3f
         with:
           context: ./ml-client
           file: ./ml-client/Dockerfile
