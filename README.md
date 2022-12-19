@@ -2,17 +2,18 @@
 <br />
 ![ML Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/ml-tests.yaml/badge.svg)
 ![Web App Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/web-app-tests.yaml/badge.svg)
+![Docker Hub CD](https://github.com/software-students-fall2022/final-project-project5-team5/workflows/ci/badge.svg)
 
 # Final Project
 ## Project Description
 
 Our app has three subsystems:
 
-Machine Learning Client: Allows the user to apply one image's style to another image.
+**Machine Learning Client:** Allows the user to apply one image's style to another image.
 
-Web App: Displays the result images along with the content and style images used.
+**Web App:** Displays the result images along with the content and style images used.
 
-MongoDB Database: Stores all the images.
+**MongoDB Database:** Stores all the images.
 
 Content and style images are uploaded to the Machine Learning client and converted into one resultant image. For this, Tensorflow's ML package is used. The Web App works as a gallery of all images created as well as content and style images used for the resultant images.
 
@@ -32,6 +33,14 @@ Simple image processing web app that applies style of one image onto another.
 3. In the ML client, you can take upload the images or provide an URL of images. After you submit, the machine-learning algorithm will run for 2~3 seconds, show the result image and also upload it to the database.
 
 4. After you have created a few images in the ML client, you can view results in the web-app by going to `127.0.0.1:4000`.
+
+
+## Digital Ocean
+
+Photo Gallery for Transformation Process - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/zackdan-project-5-team-5-deploy)
+
+Machine Learning Client - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/)
+
 
 ## Team Members
 

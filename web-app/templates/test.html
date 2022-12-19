@@ -5,13 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+        <link rel="stylesheet" href="../static/css/style.css"/>
         <title>Web App</title>
     </head>
     <body>
         
-            
-      <div class="title">Transformation Process</h1></div>
+        <div><h1 class="title">Transformation Process</h1></div>
         
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="/">Home</a>
@@ -49,12 +48,29 @@
 
           </div>
         </nav>
-        <div class="category">Category: {{category}}</div>
         <div>
-            {% if message %}
-            <h1 class="display-4 message">{{message}}</h1>
-            {% endif %}
-            {% for image in images %}
+            <div class="rowDiv">
+                <div class="imageDiv">
+                    <h3 class="imageLabel lead">Content Image</h3>
+                    <img src="{{image['contentImageURI']}}" loading="lazy" class="image">
+                </div>
+                <div class="imageDiv">
+                    <h3 class="imageLabel lead">Style Image</h3>
+                    <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
+                </div>
+                <div class="imageDiv">
+                  <h3 class="imageLabel lead">Stylized Image</h3>
+                  <div class="stylizedImg">
+                    <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
+                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
+                  </div>
+                  
+              </div>
+              <form action="/category/{{image['style']}}">
+                <button type="button" class="btn btn-primary">Style: {{image['style']}}</button>
+              </form>
+            </div>
+
             <div class="rowDiv">
               <div class="imageDiv">
                   <h3 class="imageLabel lead">Content Image</h3>
@@ -68,17 +84,17 @@
                 <h3 class="imageLabel lead">Stylized Image</h3>
                 <div class="stylizedImg">
                   <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
-                  
                 </div>
+                
             </div>
             <form action="/category/{{image['style']}}">
-              <button type="submit"class="btn btn-primary">Style: {{image['style']}}</button>
+              <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
             </form>
             <form action="../delete/{{image['_id']}}" method="GET">
               <button type="submit" name="delete">Delete This</button>
             </form>
-            </div>
-            {% endfor %}
+          </div>
+            
         </div>
         
         <!--- FOOTER STARTS-->
@@ -114,8 +130,25 @@
               </div>
               </div>
           </div>
-      </footer>
-      <!--- FOOTER ENDS-->
-      
+        </footer>
+        <!--- FOOTER ENDS-->
+
+        <script>
+          async function deleteRow(event, id) {
+            console.log("clicked", id);
+            const url = `http://127.0.0.1:4000/delete/`;
+            const response = await fetch(url + id, {
+              method: "DELETE",
+            });
+            if (response.ok) {
+              const resData =response;
+              console.log(resData);
+              event.path[3].remove(); // remove it from the page
+            } else {
+              console.log("error happened!");
+            }
+          }
+        </script>
+
     </body>
 </html>
