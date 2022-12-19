@@ -1,11 +1,9 @@
 contentImageInput.onchange = e => {
     contentImg.src = URL.createObjectURL(contentImageInput.files[0]);  
-    console.log(contentImg.src)
   };
 
 styleImageInput.onchange = e => {
     styleImg.src = URL.createObjectURL(styleImageInput.files[0]);
-    console.log(styleImg.src)
 };
 
 function uploadStyleImage(){
@@ -54,6 +52,7 @@ function timeCompleted() {
 document.getElementById("generateImg").addEventListener("click", function() {
     let counter = 0;
     localStorage.setItem("counter", JSON.stringify(counter));
+    document.getElementById("spinDiv").classList.remove("hidden");
     let start = setInterval(timeCompleted, 1000);
 });
 

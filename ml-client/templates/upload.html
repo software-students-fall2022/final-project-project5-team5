@@ -55,15 +55,18 @@
                       </div>
                       <input id="imageStyle" type="text" value="" name="style">
                 </div>
+            </div>
+            <div class="spin hidden" id="spinDiv"></div>
             {% if error %}
-                <p class="text-danger movecloser">{{error}}</p>
+                <p class="text-danger lead error">Error: {{error}}</p>
+                <button onclick="getImages()" type="button" class="btn btn-primary generateButton" id="generateImg">Generate Image</button>
+            {% else %}
+                <button onclick="getImages()" type="button" class="btn btn-primary generateButtonBefore" id="generateImg">Generate Image</button>
             {% endif %}
-            <button type="submit" class="btn btn-primary move" id="generateImg">Generate Image</button>
         </form>
         <a href="{{ url_for('home')}}">
-            <button class="btn btn-primary back">Back</button>
+            <button class="btn btn-primary uploadBack">Back</button>
         </a>
-
         <!--- FOOTER STARTS-->
         <footer class="site-footer">
             <div class="container">
@@ -99,7 +102,6 @@
             </div>
         </footer>
         <!--- FOOTER ENDS-->
-        
-     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+        <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     </body>
 </html>

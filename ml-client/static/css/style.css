@@ -1,5 +1,5 @@
 .title {
-  margin-top: 5%;
+  margin-top: 2%;
   text-align: center;
 }
 
@@ -274,7 +274,7 @@
 }
 
 .generateButtonBefore {
-  margin-top: 5%;
+  margin-top: 3.5%;
 }
 
 .uploadBack {
@@ -304,13 +304,12 @@
 }
 
 #totalTime {
-  margin-top: 2%;
   text-align: center;
   font-size: 1.5rem;
 }
 
 .error {
-  margin-top: 2%;
+  margin-top: 1%;
   text-align: center;
   margin-left: 2.5%;
 }
