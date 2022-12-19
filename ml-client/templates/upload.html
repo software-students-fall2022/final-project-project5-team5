@@ -56,16 +56,52 @@
                       <input id="imageStyle" type="text" value="" name="style">
                 </div>
             </div>
+            <div class="spin hidden" id="spinDiv"></div>
             {% if error %}
-                <p class="lead text-danger error">Error: {{ error }}</p>
+                <p class="text-danger lead error">Error: {{error}}</p>
                 <button onclick="getImages()" type="button" class="btn btn-primary generateButton" id="generateImg">Generate Image</button>
             {% else %}
                 <button onclick="getImages()" type="button" class="btn btn-primary generateButtonBefore" id="generateImg">Generate Image</button>
             {% endif %}
         </form>
-        <a class="uploadBackLink" href="{{ url_for('home')}}">
+        <a href="{{ url_for('home')}}">
             <button class="btn btn-primary uploadBack">Back</button>
         </a>
+        <!--- FOOTER STARTS-->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>Team 5</h6>
+                    <p class="text-justify">
+                        Sagynbek Talgatuly <br>
+                        Amaan Khwaja <br>
+                        Manny Soto Ruiz <br>
+                        Kedan Zha <br>
+                        Wuji Cao <br>
+                        Kevin Gong <br>
+                    </p>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                    <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                    </ul>
+                </div>
+                </div>
+                <hr>
+            </div>
+            <div class="container">
+                <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+                Team 5.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </footer>
+        <!--- FOOTER ENDS-->
         <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     </body>
 </html>

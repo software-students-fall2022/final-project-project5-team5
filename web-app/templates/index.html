@@ -9,17 +9,46 @@
         <title>Web App</title>
     </head>
     <body>
-        <header>
-            <h1 class="display-3 title">Transformation Process</h1>
-        </header>
-        
-        <div class="screenDiv">
+        <div><h1 class="title">Transformation Process</h1></div>
 
-          <form action="/search/">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-          </form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">Home</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Classical">Classical</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Realist">Realist</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Romantic">Romantic</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Impressionist">Impressionist</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Modern">Modern</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/category/Misc">Misc</a>
+              </li>
+            </ul>
+
+          </div>
+        </nav>
+
+        <div>
             {% if message %}
             <h1 class="display-4 message">{{message}}</h1>
             {% endif %}
@@ -27,72 +56,83 @@
             <div class="rowDiv">
                 <div class="imageDiv">
                     <h3 class="imageLabel lead">Content Image</h3>
-                    <img src="{{image['contentImageURI']}}" height="384" width="384">
+                    <img src="{{image['contentImageURI']}}" loading="lazy" class="image">
                 </div>
                 <div class="imageDiv">
                     <h3 class="imageLabel lead">Style Image</h3>
-                    <img src="{{image['styleImageURI']}}" height="384" width="384">
+                    <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
                 </div>
                 <div class="imageDiv">
                   <h3 class="imageLabel lead">Stylized Image</h3>
                   <div class="stylizedImg">
-                    <img class="myImg" src="{{image['stylizedImageURI']}}" height="384" width="384" style="position: relative;">
-                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
+                    <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
+                   <!---<img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">-->
                   </div>
               </div>
-                <h3><a href="/category/{{image['style']}}">Style: {{image['style']}}</a></h3>
+              <form action="/category/{{image['style']}}">
+                <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
+              </form>
+              <form action="../delete/{{image['_id']}}" method="GET">
+                <button type="submit" name="delete">Delete This</button>
+              </form>
             </div>
             {% endfor %}
         </div>
-        
+
         <!--- FOOTER STARTS-->
         <footer class="site-footer">
-            <div class="container">
+          <div class="container">
               <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h6>About</h6>
-                    <p class="text-justify">Team 5 - Content and style images are uploaded to the Machine Learning client and 
-                    converted into one resultant image. For this, Tensorflow's ML package is used. The Web App works as a gallery 
-                    of all images created as well as content and style images used for the resultant images.
-                    </p>
-                </div>
-      
-                <div class="col-xs-6 col-md-3">
+              <div class="col-sm-12 col-md-6">
+                  <h6>Team 5</h6>
+                  <p class="text-justify">
+                      Sagynbek Talgatuly <br>
+                      Amaan Khwaja <br>
+                      Manny Soto Ruiz <br>
+                      Kedan Zha <br>
+                      Wuji Cao <br>
+                      Kevin Gong <br>
+                  </p>
+              </div>
+              <div class="col-xs-6 col-md-3">
                   <h6>Quick Links</h6>
                   <ul class="footer-links">
-                    <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                  <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
                   </ul>
-                </div>
+              </div>
               </div>
               <hr>
-            </div>
-            <div class="container">
+          </div>
+          <div class="container">
               <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
+              <div class="col-md-8 col-sm-6 col-xs-12">
                   <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
-               Team 5.
+              Team 5.
                   </p>
-                </div>
               </div>
-            </div>
-        </footer>
-        <!--- FOOTER ENDS-->
 
-        <script>
-          async function deleteRow(event, id) {
-            console.log("clicked", id);
-            const url = `http://127.0.0.1:4000/delete/`;
-            const response = await fetch(url + id, {
-              method: "DELETE",
-            });
-            if (response.ok) {
-              const resData =response;
-              console.log(resData);
-              event.path[3].remove(); // remove it from the page
-            } else {
-              console.log("error happened!");
-            }
+              </div>
+          </div>
+      </footer>
+      <!--- FOOTER ENDS-->
+        
+      <script>
+        async function deleteRow(event, id) {
+          console.log("clicked", id);
+          const url = `http://127.0.0.1:4000/delete/`;
+          const response = await fetch(url + id, {
+            method: "DELETE",
+          });
+          if (response.ok) {
+            const resData =response;
+            console.log(resData);
+            event.path[3].remove(); // remove it from the page
+          } else {
+            console.log("error happened!");
+
           }
-        </script>
+        }
+      </script>
+    
     </body>
 </html>
