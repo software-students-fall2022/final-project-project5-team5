@@ -43,6 +43,18 @@
                     {% endif %}
                     <button onclick="uploadStyleImage()" class="btn btn-primary uploadButton" type="button">Upload Style Image</button>
                 </div>
+                <div class="containerDiv">
+                    <p class="display-6">Choose a Style</p>
+                    <div class="list-group stylesDiv">
+                        <button type="button" id="classical" class="list-group-item list-group-item-action styles lead">Classical</button>
+                        <button type="button" id="realist" class="list-group-item list-group-item-action styles lead">Realist</button>
+                        <button type="button" id="romantic" class="list-group-item list-group-item-action styles lead">Romantic</button>
+                        <button type="button" id="impressionist" class="list-group-item list-group-item-action styles lead">Impressionist</button>
+                        <button type="button" id="modern" class="list-group-item list-group-item-action styles lead">Modern</button>
+                        <button type="button" id="misc" class="list-group-item list-group-item-action styles lead">Misc</button>
+                      </div>
+                      <input id="imageStyle" type="text" value="" name="style">
+                </div>
             </div>
             {% if error %}
                 <p class="lead text-danger error">Error: {{ error }}</p>

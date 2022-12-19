@@ -199,8 +199,8 @@ a {
   display: flex;
   flex-direction: row;
   width: 100%;
-  column-gap: 14%;
-  justify-content: center;
+  column-gap: 5%;
+  padding-left: 1.5%;
 }
 
 .resultsDiv {
@@ -233,7 +233,7 @@ a {
 
 .generateButton, .generateButtonBefore {
   display: block;
-  margin-left: 43.6%;
+  margin-left: 44.6%;
   width: 220px;
   height: 50px;
   font-size: 1.5rem;
@@ -245,7 +245,7 @@ a {
 
 .uploadBack {
   display:block;
-  margin-left: 47.1%;
+  margin-left: 48.1%;
   margin-top: 1%;
   width:100px;
   height: 45px;
@@ -278,4 +278,16 @@ a {
 .error {
   margin-top: 2%;
   text-align: center;
+  margin-left: 2.5%;
+}
+
+.styles {
+  width: 470px;
+  border: 1px solid black;
+  height: 83.4px;
+  font-size: 2.5rem;
+}
+
+.stylesDiv {
+  padding-bottom: 15%;
 }

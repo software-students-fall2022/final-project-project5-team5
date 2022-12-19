@@ -41,26 +41,25 @@ def home():
 def url():
     if(request.method == "GET"):
         return render_template("url.html")
-    print(request.form["style"])
     acceptedFormats = ["jpg", "jpeg", "png", "bmp"]
-    #try:
-    #    contentImageContent = requests.get(request.form["contentImageURL"]).content
-    #except:
-    #    return render_template("url.html", error="Content image url is invalid. Either save and upload the image using the upload option, or pick a different content image with a valid extension in the url.")
-    #try:
-    #    styleImageContent = requests.get(request.form["styleImageURL"]).content
-    #except:
-    #    return render_template("url.html", error="Style image url is invalid. Either save and upload the image using the upload option, or pick a different style image with a valid extension in the url.")
-    #try:
-    #    contentExt = filetype.guess(contentImageContent).extension
-    #except:
-    #    return render_template("url.html", error="Problem deciphering the filetype of content image, image may be temporarily down or has an invalid extension, use another content image.")
-    #try:
-    #    styleExt = filetype.guess(styleImageContent).extension
-    #except:
-    #    return render_template("url.html", error="Problem deciphering the filetype of style image, image may be temporarily down or has an invalid extension, use another style image.")
-    #if(contentExt not in acceptedFormats or styleExt not in acceptedFormats):
-    #    return render_template("url.html", error="Please enter images in valid formats (.jpg, .jpeg, .png, .bmp)")
+    try:
+        contentImageContent = requests.get(request.form["contentImageURL"]).content
+    except:
+        return render_template("url.html", error="Content image url is invalid. Either save and upload the image using the upload option, or pick a different content image with a valid extension in the url.")
+    try:
+        styleImageContent = requests.get(request.form["styleImageURL"]).content
+    except:
+        return render_template("url.html", error="Style image url is invalid. Either save and upload the image using the upload option, or pick a different style image with a valid extension in the url.")
+    try:
+        contentExt = filetype.guess(contentImageContent).extension
+    except:
+        return render_template("url.html", error="Problem deciphering the filetype of content image, image may be temporarily down or has an invalid extension, use another content image.")
+    try:
+        styleExt = filetype.guess(styleImageContent).extension
+    except:
+        return render_template("url.html", error="Problem deciphering the filetype of style image, image may be temporarily down or has an invalid extension, use another style image.")
+    if(contentExt not in acceptedFormats or styleExt not in acceptedFormats):
+        return render_template("url.html", error="Please enter images in valid formats (.jpg, .jpeg, .png, .bmp)")
     if(request.form["style"] == ""):
         return render_template("url.html", error="Please pick a style")
     contentImageURI = "data:image/" + contentExt + ";base64," + base64.b64encode(contentImageContent).decode()
@@ -90,6 +89,9 @@ def upload():
         return render_template("upload.html", error="Could not parse uploaded content image")
     if(request.form["styleImageURI"] == "Style Image Error"):
         return render_template("upload.html", error="Could not parse uploaded style image")
+    if(request.form["style"] == ""):
+        return render_template("upload.html", error="Please choose a style")
+    print(request.form["style"])
     strippedContentImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["contentImageURI"], count=1)
     strippedStyleImage = re.sub('^data:image\/[a-z]+;base64,', "", request.form["styleImageURI"], count=1)
     decodedContentImage = base64.b64decode(strippedContentImage)
@@ -112,7 +114,8 @@ def upload():
         db.images.insert_one({
             'contentImageURI': request.form["contentImageURI"],
             'styleImageURI': request.form["styleImageURI"],
-            'stylizedImageURI': stylizedImageURI
+            'stylizedImageURI': stylizedImageURI,
+            'style': request.form["style"]
         })
     except:
         pass
