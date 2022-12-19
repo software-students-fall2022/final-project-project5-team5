@@ -10,9 +10,18 @@ import os
 import io
 import re
 import boto3 
+import botocore
 
-session = boto3.Session()
-s3 = session.client("s3")
+#session = boto3.Session()
+#s3 = session.client("s3")
+
+session = boto3.session.Session()
+client = session.client('s3',
+                        config=botocore.config.Config(s3={'addressing_style': 'virtual'}),
+                        region_name='nyc3',
+                        endpoint_url='https://nyc3.digitaloceanspaces.com',
+                        aws_access_key_id='DO00P6KXQDC2DT9D47WW',
+                        aws_secret_access_key='nhVzsFR9cwrpwoJ07ETjf37XFjSngpkNH+2/9c/gZws')
 
 app = Flask(__name__)
 
@@ -80,17 +89,35 @@ def url():
     contentKey = 'content' + currentTime + "." + str(contentExt)
     styleKey = 'style' + currentTime + "." + str(styleExt)
     try:
-        s3.put_object(Body = contentImageContent, Bucket='kgstyletransfer', Key=contentKey)
-        s3.put_object(Body = styleImageContent, Bucket='kgstyletransfer', Key=styleKey)
-    except:
+        client.put_object(Bucket='styletransfer',
+                  Key=contentKey,
+                  Body=contentImageContent,
+                  ACL='public-read',
+                )
+        client.put_object(Bucket='styletransfer',
+                  Key=styleKey,
+                  Body=styleImageContent,
+                  ACL='public-read',
+                )
+        #s3.put_object(Body = contentImageContent, Bucket='kgstyletransfer', Key=contentKey)
+        #s3.put_object(Body = styleImageContent, Bucket='kgstyletransfer', Key=styleKey)
+    except Exception as e:
+        print(e)
         pass
     decodedStylizedImage = base64.b64decode(re.sub('^data:image\/[a-z]+;base64,', "", stylizedImageURI, count=1))
     stylizedKey = 'stylized' + currentTime + ".jpg"
     try:
-        s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
-    except:
+        client.put_object(Bucket='styletransfer',
+                  Key=stylizedKey,
+                  Body=decodedStylizedImage,
+                  ACL='public-read',
+                )
+        print("made it")
+        #s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
+    except Exception as e:
+        print(e)
         pass
-    baseurl = "https://kgstyletransfer.s3.amazonaws.com/"
+    baseurl = "https://styletransfer.nyc3.digitaloceanspaces.com/"
     contentImageS3 = baseurl + contentKey
     styleImageS3 = baseurl + styleKey
     stylizedImageS3 = baseurl + stylizedKey
@@ -136,21 +163,21 @@ def upload():
     contentKey = 'content' + currentTime + "." + str(contentExt)
     styleKey = 'style' + currentTime + "." + str(styleExt)
     try:
-        s3.put_object(Body = decodedContentImage, Bucket='kgstyletransfer', Key=contentKey)
-        s3.put_object(Body = decodedStyleImage, Bucket='kgstyletransfer', Key=styleKey)
+        #s3.put_object(Body = decodedContentImage, Bucket='kgstyletransfer', Key=contentKey)
+        #s3.put_object(Body = decodedStyleImage, Bucket='kgstyletransfer', Key=styleKey)
     except:
         pass
     stylizedImageURI = uploaded_perform_style_transfer(model, decodedContentImage, decodedStyleImage)
     decodedStylizedImage = base64.b64decode(re.sub('^data:image\/[a-z]+;base64,', "", stylizedImageURI, count=1))
     stylizedKey = 'stylized' + currentTime + ".jpg"
     try:
-        s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
+        #s3.put_object(Body = decodedStylizedImage, Bucket='kgstyletransfer', Key=stylizedKey)
     except:
         pass
-    baseurl = "https://kgstyletransfer.s3.amazonaws.com/"
-    contentImageS3 = baseurl + contentKey
-    styleImageS3 = baseurl + styleKey
-    stylizedImageS3 = baseurl + stylizedKey
+    #baseurl = "https://kgstyletransfer.s3.amazonaws.com/"
+    #contentImageS3 = baseurl + contentKey
+    #styleImageS3 = baseurl + styleKey
+    #stylizedImageS3 = baseurl + stylizedKey
     try:
         db.images.insert_one({
             'contentImageURI': contentImageS3,
