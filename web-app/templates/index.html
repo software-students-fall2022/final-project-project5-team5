@@ -69,11 +69,12 @@
                    <!---<img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">-->
                   </div>
               </div>
+              <a href="{{image['stylizedImageURI']}}" download="style.jpg" class="btn btn-info">Download</a>
               <form action="/category/{{image['style']}}">
                 <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
               </form>
               <form action="../delete/{{image['_id']}}" method="GET">
-                <button type="submit" name="delete">Delete This</button>
+                <button type="submit" name="delete" class="btn btn-danger">Delete This</button>
               </form>
             </div>
             {% endfor %}

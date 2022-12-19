@@ -72,6 +72,17 @@
   background-color: rgba(235, 235, 235, 0.342);
 }
 
+.buttonDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+  justify-content: space-around;
+  flex-grow: 2;
+  height: 300px;
+  width: 50px;
+}
+
 header {
   width: 100%;
   background-color: #FFFFFF;
