@@ -230,30 +230,43 @@
 }
 
 .uploadDiv {
-  display: flex;
+  display: flex; 
   flex-direction: row;
   width: 100%;
-  column-gap: 5%;
-  padding-left: 1.5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: center;
+  column-gap: 6%;
+  margin-bottom: 9%;
+}
+
+.uploadDiv img {
+  width: 100%;
 }
 
 .resultsDiv {
-  display: flex;
+  display: flex; 
   flex-direction: row;
   width: 100%;
-  column-gap: 3%;
-  padding-left: 2.3%;
+  padding-left: 5%;
+  padding-right: 5%;
   text-align: center;
+  column-gap: 6%;
+  margin-bottom: 9%;
 }
 
 #uploadForm {
   width: 100%;
-  height: 70vh;
+  height: auto;
+  margin-bottom: 25px;
+  flex-direction: row;
+  row-gap: 10%;
 }
 
 .containerDiv {
   display: flex;
   flex-direction: column;
+  width: 30%;
   text-align: center;
 }
 
@@ -262,16 +275,16 @@
 }
 
 .imageDiv {
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
 }
 
 .generateButton, .generateButtonBefore {
   display: block;
-  margin-left: 44.6%;
-  width: 220px;
-  height: 50px;
+  width: auto;
+  height: auto;
   font-size: 1.5rem;
+  margin: 0 auto;
 }
 
 .generateButtonBefore {
@@ -280,8 +293,8 @@
 
 .uploadBack {
   display:block;
-  margin-left: 48.1%;
-  margin-top: 1%;
+  margin: 0 auto;
+  margin-top: 10px;
   width:100px;
   height: 45px;
   font-size: 1.3rem;
@@ -316,10 +329,10 @@
 }
 
 .styles {
-  width: 470px;
+  width: 100%;
   border: 1px solid black;
-  height: 83.4px;
-  font-size: 2.5rem;
+  height: 100%;
+  font-size: 1.5rem;
 }
 
 .stylesDiv {

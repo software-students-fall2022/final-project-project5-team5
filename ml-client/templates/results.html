@@ -13,22 +13,22 @@
     <br>
     <br>
     <div class="resultsDiv">
-        <div class="ContainerDiv">
+        <div class="containerDiv">
             <p class="display-6">Content Image</p>
             {% if contentImageURI %}
-                <img id="contentImg" src="{{ contentImageURI }}" height="500" width="500">
+                <img id="contentImg" src="{{ contentImageURI }}">
             {% endif %}
         </div>
         <div class="containerDiv">
             <p class="display-6">Style Image</p>
             {% if styleImageURI %}
-                <img id="styleImg" src="{{ styleImageURI }}" height="500" width="500">
+                <img id="styleImg" src="{{ styleImageURI }}">
             {% endif %}
         </div>
         <div class="containerDiv">
             <p class="display-6">Stylized Image</p>
             {% if stylizedImageURI %}
-                <img id="stylizedImg" src="{{ stylizedImageURI }}" height="500" width="500">
+                <img id="stylizedImg" src="{{ stylizedImageURI }}">
                 <a href="{{ stylizedImageURI }}" download="stylizedImage">
                     <button type="button" class="btn btn-primary uploadButton"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -43,6 +43,43 @@
     <a class="uploadBackLink" href="{{ url_for('upload')}}">
         <button class="btn btn-primary uploadBack">Back</button>
     </a>
+    
+    <!--- FOOTER STARTS-->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h6>Team 5</h6>
+                <p class="text-justify">
+                    Sagynbek Talgatuly <br>
+                    Amaan Khwaja <br>
+                    Manny Soto Ruiz <br>
+                    Kedan Zha <br>
+                    Wuji Cao <br>
+                    Kevin Gong <br>
+                </p>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                <li><a href="https://github.com/software-students-fall2022/final-project-project5-team5">Github</a></li>
+                </ul>
+            </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
+            Team 5.
+                </p>
+            </div>
+            </div>
+        </div>
+    </footer>
+    <!--- FOOTER ENDS-->
+
     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 </body>
 </html>
