@@ -170,6 +170,36 @@
 
           }
         }
+
+        let navBtns = document.querySelectorAll(".nav-item");
+        for (let i = 0; i < navBtns.length; i++) {
+          navBtns[i].addEventListener("click", function() {
+            localStorage.setItem("active", JSON.stringify(navBtns[i].innerText));
+          });
+        }
+
+        document.querySelectorAll(".navbar-brand")[0].addEventListener("click", function(){
+          localStorage.setItem("active", JSON.stringify("Home"));
+        });
+
+        let getActive = JSON.parse(localStorage.getItem("active"));
+        if (!getActive || getActive==="Home") {
+          getActive = "Home";
+          document.querySelectorAll(".navbar-brand")[0].style.backgroundColor = "white";
+          for (let i = 0; i < navBtns.length; i++) {
+            navBtns[i].style.backgroundColor = "rgb(235, 235, 235)";
+          }
+
+        } else {
+          document.querySelectorAll(".navbar-brand")[0].style.backgroundColor = "rgb(235, 235, 235)";
+          for (let i = 0; i < navBtns.length; i++) {
+            if (navBtns[i].innerText === getActive) {
+              navBtns[i].style.backgroundColor = "white";
+            } else {
+              navBtns[i].style.backgroundColor = "rgb(235, 235, 235)";
+            }
+          }
+        }
       </script>
     
     </body>
