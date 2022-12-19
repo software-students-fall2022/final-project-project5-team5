@@ -1,9 +1,6 @@
-name: ci & cd
+name: Continuous Development
 
 on:
-  push:
-    branches:
-      - digitalocean
   pull_request:
     branches:
       - 'main'
@@ -42,7 +39,7 @@ jobs:
           file: ./ml-client/Dockerfile
           push: true
           tags: zackdan/project5-team5-deploy:2
-  deploy:
+  deploy-ml:
     runs-on: ubuntu-latest
     needs: docker
     steps:
@@ -51,3 +48,12 @@ jobs:
         with:
             app_name: transformationprocess
             token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+  deploy-wb:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: DigitalOcean App Platform Deployment
+        uses: digitalocean/app_action@main
+        with:
+            app_name: gallaryweb
+            token: ${{ secrets.DIGITALOCEAN_TOKEN }}          
