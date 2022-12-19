@@ -1,43 +1,77 @@
-name: CD
-
+name: Deploy to DO
 on:
   push:
     branches:
-      - 'digitalocean'
-  pull_request:
-    branches:
-      - 'main'
-
+      - digitalocean
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Install doctl
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+      - name: Install DigitalOcean Controller
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-        run: doctl registry login --expiry-seconds 600
-      - name: Build and push
-        uses: docker/build-push-action@v3
+      - name: Set up Docker Builder
+        uses: docker/setup-buildx-action@v1
+      - name: Authenticate with DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 180
+      - name: Build and Push to DigitalOcean Container Registry
+        uses: docker/build-push-action@v2
         with:
           context: ./web-app
           file: ./web-app/Dockerfile
           push: true
-          tags: registry.digitalocean.com/project5-team5:1
+          tags: |
+            registry.digitalocean.com/styletransfer/api:1
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           context: ./ml-client
           file: ./ml-client/Dockerfile
           push: true
-          tags: registry.digitalocean.com/project5-team5:2
+          tags: registry.digitalocean.com/styletransfer/api:2     
+
+  deploy-api-1:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # Droplets already have docker, doctl + auth, and curl installed
+      - name: Deploy api to DigitalOcean Droplet
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.DO_API1_HOST }}
+          username: root
+          key: ${{ secrets.DO_API_KEY }}
+          port: 22
+          script: |
+            doctl registry login --expiry-seconds 180
+            docker pull registry.digitalocean.com/styletransfer/api:1
+
+            docker run -d \
+              --restart always \
+              -p 0.0.0.0:4000:4000 \
+              --name api \
+              registry.digitalocean.com/styletransfer/api:1
+
+  deploy-api-2:
+    needs: deploy-api-1 # rolling deploy
+    runs-on: ubuntu-latest
+    steps:
+      # Droplets already have docker, doctl + auth, and curl installed
+      - name: Deploy api to DigitalOcean Droplet
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.DO_API2_HOST }}
+          username: root
+          key: ${{ secrets.DO_API_KEY }}
+          port: 22
+          script: |
+            doctl registry login --expiry-seconds 180
+            docker pull registry.digitalocean.com/styletransfer/api:2
+            docker run -d \
+              --restart always \
+              -p 0.0.0.0:3000:3000 \
+              --name api \
+              registry.digitalocean.com/styletransfer/api:latest
