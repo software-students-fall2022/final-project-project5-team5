@@ -237,7 +237,7 @@
   padding-right: 5%;
   text-align: center;
   column-gap: 6%;
-  margin-bottom: 9%;
+  margin-bottom: 2%;
 }
 
 .uploadDiv img {
@@ -284,7 +284,6 @@
   height: auto;
   font-size: 1.5rem;
   margin: auto;
-  margin-top: -5%;
 }
 
 .uploadBack {
