@@ -19,4 +19,4 @@ def test_search(flask_app):
 def test_delete(flask_app):
     response = flask_app.get('/delete/something')
     assert response.request.path == "/delete/something"
-    assert response.status_code == 405
+    assert response.status_code == 404
