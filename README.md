@@ -34,12 +34,21 @@ Simple image processing web app that applies style of one image onto another.
 
 4. After you have created a few images in the ML client, you can view results in the web-app by going to `127.0.0.1:4000`.
 
+5. URL examples for images:
+      - https://jpeg.org/images/jpeg-home.jpg
+      - https://fileinfo.com/img/ss/xl/jpeg_43.png
+
 
 ## Digital Ocean
 
 Photo Gallery for Transformation Process - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/zackdan-project-5-team-5-deploy)
 
 Machine Learning Client - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/)
+
+
+## Docker Hub
+
+Docker Hub Image - [Link](https://hub.docker.com/repository/docker/zackdan/project5-team5-deploy)
 
 
 ## Team Members
