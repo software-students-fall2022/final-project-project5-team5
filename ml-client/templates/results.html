@@ -13,22 +13,22 @@
     <br>
     <br>
     <div class="resultsDiv">
-        <div class="containerDiv">
+        <div class="ContainerDiv">
             <p class="display-6">Content Image</p>
             {% if contentImageURI %}
-                <img id="contentImg" src="{{ contentImageURI }}">
+                <img id="contentImg" src="{{ contentImageURI }}" height="400" width="400">
             {% endif %}
         </div>
         <div class="containerDiv">
             <p class="display-6">Style Image</p>
             {% if styleImageURI %}
-                <img id="styleImg" src="{{ styleImageURI }}">
+                <img id="styleImg" src="{{ styleImageURI }}" height="400" width="400">
             {% endif %}
         </div>
         <div class="containerDiv">
             <p class="display-6">Stylized Image</p>
             {% if stylizedImageURI %}
-                <img id="stylizedImg" src="{{ stylizedImageURI }}">
+                <img id="stylizedImg" src="{{ stylizedImageURI }}" height="400" width="400">
                 <a href="{{ stylizedImageURI }}" download="stylizedImage">
                     <button type="button" class="btn btn-primary uploadButton"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -43,7 +43,7 @@
     <a class="uploadBackLink" href="{{ url_for('upload')}}">
         <button class="btn btn-primary uploadBack">Back</button>
     </a>
-    
+
     <!--- FOOTER STARTS-->
     <footer class="site-footer">
         <div class="container">
