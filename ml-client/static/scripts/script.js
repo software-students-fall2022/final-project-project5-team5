@@ -67,3 +67,88 @@ function getTime(){
                 document.getElementById("totalTime").innerText = `Total time to create stylized image: ${currentTime} seconds`;
             }
 }
+
+let classical = document.getElementById("classical")
+let realist = document.getElementById("realist")
+let romantic = document.getElementById("romantic")
+let impressionist = document.getElementById("impressionist")
+let modern = document.getElementById("modern")
+let misc = document.getElementById("misc")
+let styleInput = document.getElementById("imageStyle")
+
+styles = [classical, realist, romantic, impressionist, modern, misc];
+
+function toggleStyles(selectedStyle){
+    for(let i=0; i < styles.length; i++){
+        if(styles[i] !== selectedStyle && styles[i].classList.contains("active")){
+            styles[i].classList.toggle("active")
+        }
+    }
+}
+
+
+classical.addEventListener("click", function() {
+    classical.classList.toggle("active");
+    if(classical.classList.contains("active")){
+        toggleStyles(classical);
+        styleInput.value="classical";
+    }
+    else {
+        styleInput.value="";
+    }
+})
+
+realist.addEventListener("click", function() {
+    realist.classList.toggle("active");
+    if(realist.classList.contains("active")){
+        toggleStyles(realist);
+        styleInput.value="realist";
+    }
+    else {
+        styleInput.value="";
+    }
+})
+
+romantic.addEventListener("click", function() {
+    romantic.classList.toggle("active");
+    if(romantic.classList.contains("active")){
+        toggleStyles(romantic);
+        styleInput.value="romantic";
+    }
+    else {
+        styleInput.value="";
+    }
+})
+
+impressionist.addEventListener("click", function() {
+    impressionist.classList.toggle("active");
+    if(impressionist.classList.contains("active")){
+        toggleStyles(impressionist);
+        styleInput.value="impressionist";
+    }
+    else {
+        styleInput.value="";
+    }
+})
+
+modern.addEventListener("click", function() {
+    modern.classList.toggle("active");
+    if(modern.classList.contains("active")){
+        toggleStyles(modern);
+        styleInput.value="modern";
+    }
+    else {
+        styleInput.value="";
+    }
+})
+
+misc.addEventListener("click", function() {
+    misc.classList.toggle("active");
+    if(misc.classList.contains("active")){
+        toggleStyles(misc);
+        styleInput.value="misc";
+    }
+    else {
+        styleInput.value="";
+    }
+})

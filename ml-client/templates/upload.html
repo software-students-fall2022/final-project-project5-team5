@@ -10,27 +10,51 @@
     </head>
     <body>
         <h1 class="display-3 title">Upload Images</h1>
-        <form method="POST" action="{{ url_for('upload')}}">
-            <div class="form-group">
-                <label for="contentImage" class="form-label">Upload Content Image</label>
-                <input class="form-control" type="file" id="contentImage" name="contentImage">
-            </div>
-            <div class="form-group">
-                <label for="styleImage" class="form-label">Upload Style Image</label>
-                <input class="form-control" type="file" id="styleImage" name="styleImage">
-            </div>
-            <div class="form-group" style="margin-top: 10px;">
-                <label for="styleSelect">Select a style</label>
-                <select class="form-select" id="styleSelect" aria-label="Default select example", name="style">
-                    <option value="" selected>Please select a style...</option>
-                    <option value="classical">Classical</option>
-                    <option value="realistic">Realist</option>
-                    <option value="romantic">Romantic</option>
-                    <option value="impressionist">Impressionist</option>
-                    <option value="modern">Modern</option>
-                    <option value="misc">Misc</option>
-                </select>
-            </div>
+        <br>
+        <form method="POST" id="uploadForm" action="{{ url_for('upload')}}">
+            <div class="uploadDiv">
+                <div class="containerDiv">
+                    <p class="display-6">Content Image</p>
+                    {% if contentImageURI %}
+                        <img id="contentImg" src="{{ contentImageURI }}" height="500" width="500">
+                    {% else %}
+                        <img id="contentImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="500" width="500">
+                    {% endif %}
+                    <input id="contentImageInput" type="file" accept="image/jpeg, image/png, image/jpg, image/bmp"/>
+                    {% if contentImageURI %}
+                        <input id="contentImageURI" value="{{ contentImageURI }}" type="text" name="contentImageURI">
+                    {% else %}
+                        <input id="contentImageURI" type="text" name="contentImageURI">
+                    {% endif %}
+                    <button onclick="uploadContentImage()" class="btn btn-primary uploadButton" type="button">Upload Content Image</button>
+                </div>
+                <div class="containerDiv">
+                    <p class="display-6">Style Image</p>
+                    {% if styleImageURI %}
+                        <img id="styleImg" src="{{ styleImageURI }}" height="500" width="500">
+                    {% else %}
+                        <img id="styleImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="500" width="500">
+                    {% endif %}
+                    <input id="styleImageInput" type="file" accept="image/jpeg, image/png, image/jpg, image/bmp"/>
+                    {% if styleImageURI %}
+                        <input id="styleImageURI" type="text" value="{{ styleImageURI }}" name="styleImageURI">
+                    {% else %}
+                        <input id="styleImageURI" type="text" name="styleImageURI">
+                    {% endif %}
+                    <button onclick="uploadStyleImage()" class="btn btn-primary uploadButton" type="button">Upload Style Image</button>
+                </div>
+                <div class="containerDiv">
+                    <p class="display-6">Choose a Style</p>
+                    <div class="list-group stylesDiv">
+                        <button type="button" id="classical" class="list-group-item list-group-item-action styles lead">Classical</button>
+                        <button type="button" id="realist" class="list-group-item list-group-item-action styles lead">Realist</button>
+                        <button type="button" id="romantic" class="list-group-item list-group-item-action styles lead">Romantic</button>
+                        <button type="button" id="impressionist" class="list-group-item list-group-item-action styles lead">Impressionist</button>
+                        <button type="button" id="modern" class="list-group-item list-group-item-action styles lead">Modern</button>
+                        <button type="button" id="misc" class="list-group-item list-group-item-action styles lead">Misc</button>
+                      </div>
+                      <input id="imageStyle" type="text" value="" name="style">
+                </div>
             {% if error %}
                 <p class="text-danger movecloser">{{error}}</p>
             {% endif %}
@@ -39,34 +63,6 @@
         <a href="{{ url_for('home')}}">
             <button class="btn btn-primary back">Back</button>
         </a>
-
-        <div class="spin hidden" id="spinnerDiv"></div>
-
-        {% if stylizedImageURI %}
-        <div class="results moveup">
-            <div class="imageContainer">
-                <h3 class="imageLabel lead">Content Image</h3>
-                <img src="{{ contentImageURI }}" width="500" height="500">
-            </div>
-            <div class="imageContainer">
-                <h3 class="imageLabel lead">Style Image</h3>
-                <img src="{{ styleImageURI }}" width="500" height="500">
-            </div>
-            <div class="imageContainer">
-                <h3 class="imageLabel lead">Stylized Image</h3>
-                <img src="{{ stylizedImageURI }}" width="500" height="500"> 
-            </div>
-        </div>
-        <div class="miscDiv">
-            <a href="{{ stylizedImageURI }}" download="stylizedImage">
-                <button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                </svg> Download Stylized Image</button>   
-            </a>
-        </div>
-        <h5 class = "total-time" id="totalTime"></h5>
-        {% endif %}
 
         <!--- FOOTER STARTS-->
         <footer class="site-footer">
@@ -104,31 +100,6 @@
         </footer>
         <!--- FOOTER ENDS-->
         
-        <script>
-            function timeCompleted() {
-                let currentTime = JSON.parse(localStorage.getItem("counter"));
-                currentTime += 1;
-                localStorage.setItem("counter", JSON.stringify(currentTime));
-            }
-
-            // start timer when generator button clicked
-            document.getElementById("generateImg").addEventListener("click", function() {
-                let counter = 0;
-                localStorage.setItem("counter", JSON.stringify(counter));
-                document.getElementById("spinnerDiv").classList.remove("hidden");
-                let start = setInterval(timeCompleted, 1000);
-            });
-
-            // display total time
-            let currentTime = JSON.parse(localStorage.getItem("counter"));
-            if (currentTime > 60) {
-                let mins = Math.floor(currentTime / 60);
-                let seconds = time - mins * 60;
-                document.getElementById("totalTime").innerText = `Total time to create stylized image: ${mins} mins ${seconds} secs`;
-            } else {
-                document.getElementById("totalTime").innerText = `Total time to create stylized image: ${currentTime} seconds`;
-            }
-
-        </script>
+     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     </body>
 </html>
