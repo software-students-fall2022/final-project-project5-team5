@@ -65,10 +65,4 @@ def delete(id):
     except:
         return "Error", 404
     
-        
-       
-    
 
-@app.route('/search/', methods=['GET','POST'])
-def search():
-    return category(request.args.get("search"))

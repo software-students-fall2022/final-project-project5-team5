@@ -22,54 +22,33 @@
             <ul class="navbar-nav mr-auto">
 
               <li class="nav-item">
-                <a class="nav-link" href="/category/Classical">Classical</a>
+                <a class="nav-link" href="/category/classical">Classical</a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/category/Realist">Realist</a>
+                <a class="nav-link" href="/category/realist">Realist</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/category/Romantic">Romantic</a>
+                <a class="nav-link" href="/category/romantic">Romantic</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/category/Impressionist">Impressionist</a>
+                <a class="nav-link" href="/category/impressionist">Impressionist</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/category/Modern">Modern</a>
+                <a class="nav-link" href="/category/modern">Modern</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/category/Misc">Misc</a>
+                <a class="nav-link" href="/category/misc">Misc</a>
               </li>
             </ul>
 
           </div>
         </nav>
         <div>
-            <div class="rowDiv">
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Content Image</h3>
-                    <img src="{{image['contentImageURI']}}" loading="lazy" class="image">
-                </div>
-                <div class="imageDiv">
-                    <h3 class="imageLabel lead">Style Image</h3>
-                    <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
-                </div>
-                <div class="imageDiv">
-                  <h3 class="imageLabel lead">Stylized Image</h3>
-                  <div class="stylizedImg">
-                    <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
-                    <img class="hide deletePic" src="../static/images/redx.png" alt="delete" onclick="deleteRow(event, `{{image['_id']}}`)">
-                  </div>
-                  
-              </div>
-              <form action="/category/{{image['style']}}">
-                <button type="button" class="btn btn-primary">Style: {{image['style']}}</button>
-              </form>
-            </div>
 
             <div class="rowDiv">
               <div class="imageDiv">
@@ -80,19 +59,29 @@
                   <h3 class="imageLabel lead">Style Image</h3>
                   <img src="{{image['styleImageURI']}}" loading="lazy" class="image">
               </div>
+
               <div class="imageDiv">
                 <h3 class="imageLabel lead">Stylized Image</h3>
                 <div class="stylizedImg">
                   <img class="myImg" src="{{image['stylizedImageURI']}}" loading="lazy" height="384" width="384" style="position: relative;">
+
+                  
                 </div>
                 
-            </div>
-            <form action="/category/{{image['style']}}">
-              <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
-            </form>
-            <form action="../delete/{{image['_id']}}" method="GET">
-              <button type="submit" name="delete">Delete This</button>
-            </form>
+              </div>
+              <div class="buttonDiv">
+                <a href="{{image['stylizedImageURI']}}" download="style.jpg" class="btn btn-info">Download</a>
+                <form action="/category/{{image['style']}}">
+                  <button type="submit" class="btn btn-primary">Style: {{image['style']}}</button>
+                </form>
+                <form action="../delete/{{image['_id']}}" method="GET">
+                  <button type="submit" name="delete" class="btn btn-danger">Delete This</button>
+                </form>
+               </div>
+
+
+
+
           </div>
             
         </div>
