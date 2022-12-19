@@ -1,9 +1,6 @@
-name: ci & cd
+name: Continuous Development
 
 on:
-  push:
-    branches:
-      - digitalocean
   pull_request:
     branches:
       - 'main'

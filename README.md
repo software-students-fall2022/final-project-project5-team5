@@ -2,7 +2,7 @@
 <br />
 ![ML Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/ml-tests.yaml/badge.svg)
 ![Web App Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/web-app-tests.yaml/badge.svg)
-![Docker Hub CD](https://github.com/software-students-fall2022/final-project-project5-team5/workflows/ci/badge.svg)
+![Continous Development](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/docker-image.yml/badge.svg)
 
 # Final Project
 ## Project Description
@@ -41,7 +41,7 @@ Simple image processing web app that applies style of one image onto another.
 
 ## Digital Ocean
 
-Photo Gallery for Transformation Process - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/zackdan-project-5-team-5-deploy)
+Photo Gallery for Transformation Process - [Link](https://gallaryweb-eqfms.ondigitalocean.app/)
 
 Machine Learning Client - [Link](https://transformationprocess-ohmxo.ondigitalocean.app/)
 
