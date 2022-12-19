@@ -19,6 +19,18 @@
                 <label for="styleImageURL">Enter Style Image URL</label>
                 <input type="text" class="form-control" id="styleImageURL" placeholder="Enter Style Image URL" name="styleImageURL">
             </div>
+            <div class="form-group" style="margin-top: 10px;">
+                <label for="styleSelect">Select a style</label>
+                <select class="form-select" id="styleSelect" aria-label="Default select example", name="style">
+                    <option value="" selected>Please select a style...</option>
+                    <option value="classical">Classical</option>
+                    <option value="realistic">Realist</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="impressionist">Impressionist</option>
+                    <option value="modern">Modern</option>
+                    <option value="misc">Misc</option>
+                </select>
+            </div>
             {% if error %}
                 <p class="text-danger movecloser">{{error}}</p>
             {% endif %}
@@ -93,7 +105,6 @@
         <!--- FOOTER ENDS-->
 
         <script>
-
             function timeCompleted() {
                 let currentTime = JSON.parse(localStorage.getItem("counter"));
                 currentTime += 1;
