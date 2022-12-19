@@ -5,8 +5,15 @@ import os
 import re
 from bson import ObjectId
 import boto3 
+import botocore
 
-s3 = boto3.resource("s3")
+session = boto3.session.Session()
+client = session.client('s3',
+                        config=botocore.config.Config(s3={'addressing_style': 'virtual'}),
+                        region_name='nyc3',
+                        endpoint_url='https://nyc3.digitaloceanspaces.com',
+                        aws_access_key_id='DO00P6KXQDC2DT9D47WW',
+                        aws_secret_access_key='nhVzsFR9cwrpwoJ07ETjf37XFjSngpkNH+2/9c/gZws')
 
 app = Flask(__name__)
 
@@ -66,9 +73,9 @@ def delete(id):
     print("deleting "+ id)
     try:
         image = db.images.find_one({"_id": ObjectId(id)})
-        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["contentImageURI"])).delete()
-        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["styleImageURI"])).delete()
-        s3.Object("kgstyletransfer", re.sub("https://kgstyletransfer.s3.amazonaws.com/", "", image["stylizedImageURI"])).delete()
+        client.delete_object(Bucket='styletransfer', Key=re.sub("https://styletransfer.nyc3.digitaloceanspaces.com/", "", image["contentImageURI"]))
+        client.delete_object(Bucket='styletransfer', Key=re.sub("https://styletransfer.nyc3.digitaloceanspaces.com/", "", image["styleImageURI"]))
+        client.delete_object(Bucket='styletransfer', Key=re.sub("https://styletransfer.nyc3.digitaloceanspaces.com/", "", image["stylizedImageURI"]))
         db.images.delete_one({
            "_id": ObjectId(id)
         })
