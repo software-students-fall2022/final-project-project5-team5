@@ -16,9 +16,9 @@
                 <div class="containerDiv">
                     <p class="display-6">Content Image</p>
                     {% if contentImageURI %}
-                        <img id="contentImg" src="{{ contentImageURI }}" height="500" width="500">
+                        <img id="contentImg" src="{{ contentImageURI }}" height="400" width="400">
                     {% else %}
-                        <img id="contentImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="500" width="500">
+                        <img id="contentImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="400" width="400">
                     {% endif %}
                     <input id="contentImageInput" type="file" accept="image/jpeg, image/png, image/jpg, image/bmp"/>
                     {% if contentImageURI %}
@@ -31,9 +31,9 @@
                 <div class="containerDiv">
                     <p class="display-6">Style Image</p>
                     {% if styleImageURI %}
-                        <img id="styleImg" src="{{ styleImageURI }}" height="500" width="500">
+                        <img id="styleImg" src="{{ styleImageURI }}" height="400" width="400">
                     {% else %}
-                        <img id="styleImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="500" width="500">
+                        <img id="styleImg" src="{{ url_for('static', filename='images/stockimage.jpeg') }}" height="400" width="400">
                     {% endif %}
                     <input id="styleImageInput" type="file" accept="image/jpeg, image/png, image/jpg, image/bmp"/>
                     {% if styleImageURI %}
