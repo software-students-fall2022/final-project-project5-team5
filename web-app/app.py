@@ -47,22 +47,27 @@ def category(id):
         if(id==""):
             return home()
         if(db.images.count_documents({'style': id}) == 0):
-            return render_template('categorized.html', message="No images in database")
+            return render_template('categorized.html', message="No images in database",category=id)
         return render_template('categorized.html', images=db.images.find({'style': id}),category=id)
     except:
         pass
     return render_template('index.html', message="No images retrieved, failure to perform find method on database") # render the home template
 
-@app.route('/delete/<id>', methods=["DELETE"])
+@app.route('/delete/<id>',methods=['GET', 'POST'])
 def delete(id):
-    if (request.method == "DELETE"):
-        try:
-            db.images.delete_one({
-                "_id": ObjectId(id)
-            })
-            return "Success", 200
-        except:
-            return "Error", 404
+    print("deleting "+ id)
+    try:
+        
+        db.images.delete_one({
+           "_id": ObjectId(id)
+        })
+        return home(), 200
+    except:
+        return "Error", 404
+    
+        
+       
+    
 
 @app.route('/search/', methods=['GET','POST'])
 def search():
