@@ -2,7 +2,7 @@
 <br />
 ![ML Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/ml-tests.yaml/badge.svg)
 ![Web App Tests](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/web-app-tests.yaml/badge.svg)
-![Docker Hub CD](https://github.com/software-students-fall2022/final-project-project5-team5/actions/workflows/docker-image.yml/badge.svg)
+![Docker Hub CD](https://github.com/software-students-fall2022/final-project-project5-team5/workflows/ci/badge.svg)
 
 # Final Project
 ## Project Description
